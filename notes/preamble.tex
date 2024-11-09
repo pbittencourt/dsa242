@@ -1,0 +1,291 @@
+% <<< GENERAL PACKAGES -------------------------------------------------------
+
+% Encoding and language
+\usepackage[utf8]{inputenc}               % For UTF-8 encoding
+\usepackage[T1]{fontenc}                  % For font encoding
+\usepackage[brazil]{babel}                % Language-specific settings
+
+% Quoting
+\usepackage{csquotes}                     % For context-sensitive quotes
+
+% Color and graphics
+\usepackage[usenames,dvipsnames]{xcolor}  % Color management
+\usepackage{graphicx}                     % For including graphics
+\graphicspath{{graphics/}}                % Set the graphics path
+
+% Float management and figures
+\usepackage{float}                        % Improved float management
+\usepackage{wrapfig}                      % For wrapping text around figures
+\usepackage{subcaption}                   % For subfigures
+\usepackage{booktabs}                     % For improved table formatting
+
+% Mathematics packages
+\usepackage{amsmath}                      % AMS math features
+\usepackage{amsfonts}                     % AMS fonts
+\usepackage{amssymb}                      % AMS symbols
+\usepackage{amsthm}                       % Theorem environments
+\usepackage{mathtools}                    % Additional math tools
+\usepackage{empheq}                       % Enhanced equations
+\usepackage{enumitem}                     % Custom lists
+\usepackage{nicefrac}                     % Enhanced fractions
+
+% Table cells merging
+\usepackage{multicol}                     % For multi-column formatting
+\usepackage{multirow}                     % For multi-row formatting
+
+% Bibliography
+\usepackage{xpatch}                       % Recommended by biblatex package
+\usepackage[                              % Use biber for bibliography
+    backend=biber,style=abnt
+]{biblatex}
+\addbibresource{references.bib}           % Bibliography file
+
+% Miscellaneous
+\usepackage{fancyhdr}           % Format headers and footers
+\usepackage{hyperref}                     % For hyperlinks
+\usepackage{cleveref}                     % For clever references
+\usepackage{bookmark}                     % For PDF bookmarks
+\usepackage{siunitx}                      % For measure units and numbers
+\usepackage{transparent}                  % Handle transparency in pdf figures
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{pgfplots}
+\usepackage{xifthen}
+\usepackage{xargs}
+\usepackage[colorinlistoftodos,prependcaption,textsize=small]{todonotes}
+\usepackage{thmtools}
+\usepackage[framemethod=TikZ]{mdframed}
+
+% >>> ------------------------------------------------------------------------
+
+% <<< HEADERS AND FOOTERS ----------------------------------------------------
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LO]{\nouppercase{\leftmark}}
+\fancyhead[RE]{\nouppercase{\rightmark}}
+\fancyfoot[C]{\thepage}
+
+% >>> ------------------------------------------------------------------------
+
+% <<< REFERENCES AND NUMBERING -----------------------------------------------
+
+% package `cleveref` don't have support for pt-BR
+\crefname{equation}{equação}{equações}
+\Crefname{equation}{Equação}{Equações}
+\crefname{figure}{figura}{figuras}
+\Crefname{figure}{Figura}{Figuras}
+\crefname{section}{seção}{seções}
+\Crefname{section}{Seção}{Seções}
+\crefname{subsection}{sub-seção}{sub-seções}
+\Crefname{subsection}{Sub-seção}{Sub-seções}
+\crefname{subsubsection}{sub-sub-seção}{sub-sub-seções}
+\Crefname{subsubsection}{Sub-sub-seção}{Sub-sub-seções}
+\crefname{table}{tabela}{tabelas}
+\Crefname{table}{Tabela}{Tabelas}
+\crefname{eg}{exemplo}{exemplos}
+\Crefname{eg}{Exemplo}{Exemplos}
+\crefname{definition}{definição}{definições}
+\Crefname{definition}{Definição}{Definições}
+
+% set how we will number equations, figures, tables and so on
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
+% start every section in a new page
+\let\oldsection\section % sometimes we want to use the default style ...
+\renewcommand\section{\clearpage\oldsection}
+
+% number til sub sub section
+\setcounter{secnumdepth}{3}
+% include sub sub sections in TOC
+\setcounter{tocdepth}{3}
+
+% >>> ------------------------------------------------------------------------
+
+% <<< SI UNITS ---------------------------------------------------------------
+
+\sisetup{locale = US}
+\sisetup{                    % FIXME isso ainda não funciona
+  detect-all,                % Apply formatting even to numbers outside math environments
+  output-decimal-marker={,}, % Use comma as decimal separator
+  group-separator={.},       % Use dot as thousands separator
+  group-minimum-digits=4     % Only apply thousands separator for numbers with 4 or more digits
+}
+%\DeclareSIUnit[number-unit-product = {}]{\decimalnumber}{}
+
+% >>> ------------------------------------------------------------------------
+
+% <<< TIKZ -------------------------------------------------------------------
+
+\usetikzlibrary{
+    intersections, angles, quotes, calc, positioning, arrows.meta
+}
+\pgfplotsset{compat=1.13}
+\tikzset{
+    force/.style={thick, {Circle[length=2pt]}-stealth, shorten <=-1pt}
+}
+
+% >>> ------------------------------------------------------------------------
+
+% <<< ANNOTATIONS ------------------------------------------------------------
+
+% Insert lesson info on margins
+\setlength{\marginparwidth}{2.5cm}
+\def\testdateparts#1{\dateparts#1\relax}
+\def\dateparts#1 #2 #3 #4 #5\relax{
+    \marginpar{\small\textsf{\mbox{#1 #2 #3 #4}}}
+}
+\def\@lesson{}%
+\newcommand{\lesson}[3]{
+    %\ifthenelse{\isempty{#3}}{%
+    %    \def\@lesson{Aula #1}%
+    %}{%
+    %    \def\@lesson{Aula #1: #3}%
+    %}%
+    %\subsection*{\@lesson}
+    \def\@lesson{Aula #1}%
+    \marginpar{\small\textsf{\mbox{\@lesson}}}
+    \testdateparts{#2}
+}
+
+% Insert TODO notes on margins
+\newcommandx{\conferir}[2][1=]{\todo[linecolor=RawSienna,backgroundcolor=RawSienna!25,bordercolor=RawSienna,#1]{#2}}
+\newcommandx{\revisar}[2][1=]{\todo[linecolor=NavyBlue,backgroundcolor=NavyBlue!25,bordercolor=NavyBlue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=ForestGreen,backgroundcolor=ForestGreen!25,bordercolor=ForestGreen,#1]{#2}}
+
+% >>> ------------------------------------------------------------------------
+
+% <<< THEOREMS STYLES --------------------------------------------------------
+
+%\makeatletter % não sei pra isso serve aqui ...
+
+% define margins for theorems environments, via mdfsetup
+\mdfsetup{skipabove=1em,skipbelow=1em}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{NavyBlue},
+    % headformat=\NAME~\NUMBER,
+    headindent=0pt,
+    headpunct={},
+    spaceabove=2em,
+]{thmbluehead}
+\declaretheoremstyle[
+    headfont=\bfseries\itshape\sffamily\color{NavyBlue},
+    % headformat=\NAME,
+    headindent=0pt,
+    headpunct={},
+    postheadspace=\newline,
+    qed=\textcolor{NavyBlue}{\blacksquare}
+]{thmblueblockqed}
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{ForestGreen},
+    % headformat=\NAME~\NUMBER,
+    headindent=0pt,
+    headpunct={},
+    spaceabove=2em,
+]{thmgreenhead}
+\declaretheoremstyle[
+    headfont=\bfseries\itshape\sffamily\color{ForestGreen},
+    % headformat=\NAME,
+    headindent=0pt,
+    headpunct={},
+    postheadspace=\newline,
+    qed=\textcolor{ForestGreen}{\blacksquare}
+]{thmgreenblockqed}
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{ForestGreen!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=ForestGreen, backgroundcolor=ForestGreen!5,
+    }
+]{thmgreenbox}
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{ForestGreen!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=ForestGreen
+    }
+]{thmgreenline}
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=NavyBlue, backgroundcolor=NavyBlue!5,
+    }
+]{thmbluebox}
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=NavyBlue
+    }
+]{thmblueline}
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{RawSienna!70!black},
+    bodyfont=\normalfont,
+    headpunct={},
+    postheadhook=\hspace{0.5em},
+    spacebelow=1em,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=RawSienna, backgroundcolor=RawSienna!5,
+    }
+]{thmredbox}
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{RawSienna!70!black}, bodyfont=\normalfont,
+    numbered=no,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=RawSienna, backgroundcolor=RawSienna!1,
+    },
+    qed=\qedsymbol
+]{thmproofbox}
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+    numbered=no,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=NavyBlue, backgroundcolor=NavyBlue!1,
+    },
+]{thmexplanationbox}
+
+% >>> ------------------------------------------------------------------------
+
+% <<< THEOREMS DEFINITIONS ---------------------------------------------------
+
+% numbered environments
+\declaretheorem[name=Teorema, numberwithin=chapter, style=thmgreenbox]{theorem}
+\declaretheorem[name=Definição, numberwithin=chapter, style=thmbluebox]{definition}
+\declaretheorem[name=Proposição, numberwithin=chapter, style=thmexplanationbox]{prop}
+\declaretheorem[name=Exemplo, numberwithin=chapter, style=thmbluehead]{eg}
+\declaretheorem[name=Estudo de caso, numberwithin=chapter, style=thmredbox]{case}
+\declaretheorem[name=Exercicio, numberwithin=chapter, style=thmgreenhead]{exercise}
+
+% These environments do not have top margins—they are designed to be "glued" to
+% the preceding environment. For example, when we state a definition, we
+% typically follow it with a proof of that definition.
+\declaretheorem[name=Prova, style=thmproofbox]{replacementproof}
+\renewenvironment{proof}[1][\proofname]{\vspace{-2em}\begin{replacementproof}}{\end{replacementproof}}
+\declaretheorem[name=Demonstração, style=thmproofbox]{replacementdemo}
+\newenvironment{demo}[1][\proofname]{\vspace{-2em}\begin{replacementdemo}}{\end{replacementdemo}}
+
+% non-numbered environments
+\declaretheorem[numbered=no, name=Corolário]{corollary}
+\declaretheorem[numbered=no, name=Observação]{remark}
+\declaretheorem[numbered=no, name=Nota]{note}
+\declaretheorem[numbered=no, name=Solução, style=thmblueblockqed]{egsol}
+\declaretheorem[numbered=no, name=Solução, style=thmblueblockqed]{sol}
+\declaretheorem[numbered=no, name=Resolução, style=thmgreenblockqed]{resolucao}
+
+% >>> ------------------------------------------------------------------------
+
+%vim:fileencoding=utf-8:foldmethod=marker:foldmarker:<<<,>>>

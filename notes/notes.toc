@@ -1,0 +1,62 @@
+\babel@toc {brazil}{}\relax 
+\contentsline {chapter}{\numberline {1}Fundamentos de estatística}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Estatística descritiva}{5}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Medidas de posição}{5}{subsection.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1.1}Média}{5}{subsubsection.1.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1.2}Média ponderada}{8}{subsubsection.1.1.1.2}%
+\contentsline {subsubsection}{\numberline {1.1.1.3}Mediana}{8}{subsubsection.1.1.1.3}%
+\contentsline {subsubsection}{\numberline {1.1.1.4}Moda}{9}{subsubsection.1.1.1.4}%
+\contentsline {subsubsection}{\numberline {1.1.1.5}Percentis}{9}{subsubsection.1.1.1.5}%
+\contentsline {subsection}{\numberline {1.1.2}Medidas de dispersão}{10}{subsection.1.1.2}%
+\contentsline {subsubsection}{\numberline {1.1.2.1}Amplitude}{10}{subsubsection.1.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.1.2.2}Desvio médio}{10}{subsubsection.1.1.2.2}%
+\contentsline {subsubsection}{\numberline {1.1.2.3}Variância}{11}{subsubsection.1.1.2.3}%
+\contentsline {subsubsection}{\numberline {1.1.2.4}Desvio-padrão}{11}{subsubsection.1.1.2.4}%
+\contentsline {subsubsection}{\numberline {1.1.2.5}Erro padrão}{12}{subsubsection.1.1.2.5}%
+\contentsline {subsubsection}{\numberline {1.1.2.6}Coeficiente de variação}{12}{subsubsection.1.1.2.6}%
+\contentsline {subsection}{\numberline {1.1.3}Medidas de forma}{12}{subsection.1.1.3}%
+\contentsline {subsubsection}{\numberline {1.1.3.1}Medidas de assimetria}{13}{subsubsection.1.1.3.1}%
+\contentsline {paragraph}{Primeiro coeficiente de assimetria de Pearson}{13}{section*.6}%
+\contentsline {paragraph}{Segundo coeficiente de assimetria de Pearson}{14}{section*.8}%
+\contentsline {paragraph}{Coeficiente de assimetria de Bowley}{15}{section*.10}%
+\contentsline {paragraph}{Coeficiente de assimetria de Fisher}{15}{section*.12}%
+\contentsline {subsubsection}{\numberline {1.1.3.2}Medidas de curtose}{16}{subsubsection.1.1.3.2}%
+\contentsline {paragraph}{Coeficiente de curtose}{17}{section*.14}%
+\contentsline {paragraph}{Coeficiente de curtose de Fisher}{18}{section*.15}%
+\contentsline {section}{\numberline {1.2}Relação entre variáveis}{20}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Variáveis qualitativas}{20}{subsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.1.1}Teste qui-quadrado}{20}{subsubsection.1.2.1.1}%
+\contentsline {subsection}{\numberline {1.2.2}Variáveis quantitativas}{24}{subsection.1.2.2}%
+\contentsline {subsubsection}{\numberline {1.2.2.1}Covariância}{25}{subsubsection.1.2.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2.2}Coeficiente de correlação de Pearson}{25}{subsubsection.1.2.2.2}%
+\contentsline {section}{\numberline {1.3}Distribuições de probabilidades}{31}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Definições gerais}{31}{subsection.1.3.1}%
+\contentsline {paragraph}{Espaço amostral}{31}{section*.30}%
+\contentsline {paragraph}{Variáveis aleatórias}{32}{section*.31}%
+\contentsline {paragraph}{Esperança de uma variável aleatória discreta}{32}{section*.32}%
+\contentsline {paragraph}{Esperança de uma variável aleatória contínua}{33}{section*.34}%
+\contentsline {paragraph}{Função de distribuição acumulada}{33}{section*.35}%
+\contentsline {subsection}{\numberline {1.3.2}Distribuições para variáveis aletórias discretas}{34}{subsection.1.3.2}%
+\contentsline {subsubsection}{\numberline {1.3.2.1}Distribuição uniforme discreta}{34}{subsubsection.1.3.2.1}%
+\contentsline {subsubsection}{\numberline {1.3.2.2}Distribuição de Bernoulli}{35}{subsubsection.1.3.2.2}%
+\contentsline {subsubsection}{\numberline {1.3.2.3}Distribuição binomial}{37}{subsubsection.1.3.2.3}%
+\contentsline {subsubsection}{\numberline {1.3.2.4}Distribuição geométrica}{41}{subsubsection.1.3.2.4}%
+\contentsline {subsubsection}{\numberline {1.3.2.5}Distribuição binomial negativa}{44}{subsubsection.1.3.2.5}%
+\contentsline {subsubsection}{\numberline {1.3.2.6}Distribuição hipergeométrica}{46}{subsubsection.1.3.2.6}%
+\contentsline {subsubsection}{\numberline {1.3.2.7}Distribuição Poisson}{49}{subsubsection.1.3.2.7}%
+\contentsline {subsection}{\numberline {1.3.3}Distribuições para variáveis aletórias contínuas}{52}{subsection.1.3.3}%
+\contentsline {subsubsection}{\numberline {1.3.3.1}Distribuição uniforme}{52}{subsubsection.1.3.3.1}%
+\contentsline {subsubsection}{\numberline {1.3.3.2}Distribuição normal}{53}{subsubsection.1.3.3.2}%
+\contentsline {section}{\numberline {1.4}Exercícios complementares}{57}{section.1.4}%
+\contentsline {paragraph}{Média}{59}{section*.52}%
+\contentsline {paragraph}{Mediana}{60}{section*.53}%
+\contentsline {paragraph}{Moda}{60}{section*.54}%
+\contentsline {paragraph}{Quartis}{60}{section*.55}%
+\contentsline {paragraph}{Amplitude}{61}{section*.56}%
+\contentsline {paragraph}{Desvio médio}{62}{section*.57}%
+\contentsline {paragraph}{Variância}{62}{section*.58}%
+\contentsline {paragraph}{Desvio-padrão}{63}{section*.59}%
+\contentsline {paragraph}{Erro padrão}{63}{section*.60}%
+\contentsline {paragraph}{Coeficiente de variação}{63}{section*.61}%
+\contentsline {paragraph}{Resumo}{63}{section*.62}%
+\contentsline {chapter}{\numberline {2}Introdução à programação com Python}{65}{chapter.2}%

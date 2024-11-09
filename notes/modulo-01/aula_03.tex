@@ -1,0 +1,148 @@
+\subsection{Distribuições para variáveis aletórias contínuas}%
+\lesson{3}{Sex 18 out 2023 19:00}{Distribuições para variáveis aletórias contínuas}
+
+\subsubsection{Distribuição uniforme}
+
+Anotar depois, conferir \parencite[p.~327]{favero}.
+
+\subsubsection{Distribuição normal}
+
+Também conhecida como \textbf{distribuição Gaussiana}, é a mais utilizada e
+importante dentre todas as distribuições, pois permite modelar diversos
+fenômenos naturais, econômicos e sociais.
+
+A distribuição normal é frequentemente usada para modelar variáveis que se
+distribuem de maneira próxima ao padrão médio e simétrico. Alguns exemplos
+incluem:
+
+\begin{enumerate}
+\item Altura e peso de uma população: as alturas e pesos de indivíduos de uma
+população tendem a seguir uma distribuição normal.
+\item Erros de medição: os erros de medição em experimentos, como os pequenos
+desvios entre medições reais e valores teóricos, costumam se distribuir
+normalmente.
+\item Desempenho de estudantes em testes: em um grande grupo, as notas de
+estudantes em testes padronizados geralmente seguem uma distribuição
+normal, com a maioria concentrada em torno da média.
+\item Flutuações no mercado financeiro: em algumas condições, pequenas
+variações diárias nos preços de ações e índices financeiros podem ser
+modeladas como uma distribuição normal.
+\item Processos biológicos e físicos: características biológicas, como a
+pressão arterial, e medições físicas, como a intensidade do som em um
+ambiente, frequentemente seguem uma distribuição normal devido a sua
+variabilidade natural.
+\end{enumerate}
+
+Seja $X$ uma variável aleatória que segue uma distribuição normal, com média
+$\mu \in \R$ e desvio-padrão $\sigma > 0$. Sua função de densidade de
+probabilidade $f(x)$ é dada por
+\begin{equation}
+    f(x) = \frac{1}{\sigma \cdot \sqrt{2 \pi}} \cdot e^{-\frac{(x-\mu)^2}{2 \sigma^2}}
+    \label{eq:dist-normal}
+\end{equation}
+com $-\infty < x < +\infty$.
+
+\begin{figure}[htpb]
+    \centering
+    {\input{graphics/dist_normal1.pdf_tex}}
+    \caption{Distribuição normal}
+    \label{fig:dist_normal1}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    {\input{graphics/dist_normal2.pdf_tex}}
+    \caption{Frequência de probabilidades em uma distribuição normal}
+    \label{fig:dist_normal2}
+\end{figure}
+
+A figura \Cref{fig:dist_normal1} ilustra graficamente uma distribuição normal,
+a partir da qual pode-se notar sua curva característica em formato de sino, com
+simetria em torno da média. Na figura \Cref{fig:dist_normal2}, observa-se outra
+propriedade particular e importante dessa distribuição: aproximadamente 68\%
+dos valores estão situados 1 desvio-padrão acima ou abaixo da média, enquanto
+95\% situam-se em até 2 desvios-padrões da média e, por fim, quase 99,7\% dos
+valores concentram-se na região de 3 desvios-padrões em torno da média. Também
+pode-se observar que, quanto menor o desvio-padrão $\sigma$, mais concentrada é
+a curva em torno da média $\mu$.
+
+Também da \Cref{fig:dist_normal2}, nota-se que o valor esperado é $E(X)=\mu$,
+de tal forma que também pode-se mostrar que a variância é dada por
+$Var(X)=\sigma^2$.
+
+Contudo, é mais conveniente e comum trabalhar com a \textbf{distribuição normal
+padrão} --- ou distrbuição normal reduzida. Ta distribuição é obtida a partir
+da transformação da variável $X$ em uma nova variável aleatória $Z$, conhecida
+como \emph{z-score} (escore padrão), com média $\mu=0$ e variância
+$\sigma^2=1$, determinada por:
+\begin{equation}
+    Z = \frac{X - \mu}{\sigma}
+    \label{eq:zscore}
+\end{equation}
+
+Interpretamos a equação \Cref{eq:zscore} da seguinte maneira:
+
+\begin{itemize}
+    \item Um \emph{z-score} igual a 0 indica que o valor $x$ da variável
+    correspondente é exatamente igual à média --- afinal, tem-se neste caso que
+    $x=\mu$, de posse que $x-\mu = 0$.
+    \item Um \emph{z-score} positivo indica que o valor $x$ da variável
+    correspondente está acima da média. Mais especificamente, para $Z=1$
+    tem-se que $x$ está 1 desvio-padrão acima da média; para $Z=2$, $x$ está 2
+    desvios-padrões acima da média, e assim sucessivamente.
+    \item Um \emph{z-score} negativo indica que o valor $x$ da variável
+    correspondente está abaixo da média. Mais especificamente, para $Z=-1$
+    tem-se que $x$ está 1 desvio-padrão abaixo da média; para $Z=-2$, $x$ está
+    2 desvios-padrões abaixo da média, e assim sucessivamente.
+\end{itemize}
+
+De posse do que foi discutido anteriormente --- e conforme apresentado na
+\Cref{fig:dist_normal2} --- podemos dizer também que aproximadamente 68\% dos
+valores em uma distribuição normal padrão possuem \emph{z-score} entre $-1$ e
+$1$, 95\% possuem \emph{z-score} entre $-2$ e $2$, enquanto 99\% possuem
+\emph{z-score} entre $-3$ e $3$.
+
+Esse tipo de transformação permite comparar distribuições de variáveis
+diferentes, com distintas métricas ou ordens de grandeza, porque não altera as
+formas das distribuições originais e gera novas variáveis com iguais valores de
+média e variância. É fácil perceber como pode-se transformar a representação de
+uma distribuição normal, dada pela \Cref{fig:dist_normal1}, com a aplicação de
+escores padrões --- conferir a \Cref{fig:dist_zscore}.
+
+\begin{figure}[htpb]
+    \centering
+    {\input{graphics/dist_zscore.pdf_tex}}
+    \caption{Distribuição normal padrão}
+    \label{fig:dist_zscore}
+\end{figure}
+
+A função de distribuição de probabilidade $f(z)$ é dada por:
+\begin{equation}
+    f(z) = \frac{1}{\sqrt{2 \pi}} \cdot e^{-\nicefrac{z^2}{2}}
+    \label{eq:dist-normal-zscore}
+\end{equation}
+
+Podemos obter a frequência acumulada em uma distribuição normal a partir da
+expressão seguinte:
+\begin{equation}
+    F(x_c) = P(X \leq x_c) = \int_{{-\infty}}^{{x_c}} {f(x)} \: d{x} {}
+    \label{eq:freq-acumulada-dist-normal}
+\end{equation}
+
+Matematicamente, a \Cref{eq:freq-acumulada-dist-normal} corresponde ao cálculo
+da área sob a curva de $f(x)$, no intervalo $-\infty$ a $x_c$. Interpreta-se
+isso como a determinação de todas as probabilidades acumuladas de ocorrências
+de valores para a variável aleatória $x$, até um valor de referência $x_c$.
+
+No caso de uma distribuição normal padrão, a frequência acumulada $F(z_c)$ pode
+ser obtida por:
+\begin{equation}
+    F(z_c) = P(Z \leq z_c) = \int_{{-\infty}}^{{z_c}} {f(z)} \: d{z} {} =
+    \frac{1}{2 \pi} \cdot \int_{{-\infty}}^{{z_c}} {e^{-\nicefrac{z^2}{2}}} \: d{z} {}
+    \label{eq:freq-acumulada-dist-padrao}
+\end{equation}
+
+Dado que a \Cref{eq:freq-acumulada-dist-padrao} não tem solução analítica
+simples --- pessoalmente não tenho ideia de como \emph{iniciar} a resolução ---
+geralmente se recorre a tabelas de \emph{z-score}, como apresentado em
+\parencite[p.~331]{favero} e \parencite[p.~2008--2009]{favero}.

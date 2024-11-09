@@ -20,15 +20,6 @@ segue uma estrutura similar ao apresentado:
 │   ├── *.pdf
 │   ├── *.pdf_tex
 │   └── *.svg
-├── modulo-01
-│   ├── aula_01.tex
-│   ├── aula_02.tex
-│   ├── aula_03.tex
-│   ├── aula_NN.tex
-│   └── exercicios.tex
-├── modulo-02
-│   ├── notes.ipynb
-│   └── notes.md
 ├── modulo-NN
 │   ├── aula_01.tex
 │   ├── aula_02.tex
@@ -36,20 +27,20 @@ segue uma estrutura similar ao apresentado:
 │   ├── aula_NN.tex
 │   ├── exercicios.tex
 │   ├── notes.ipynb
+│   ├── notes.html
 │   └── notes.md
 ├── notes.pdf
 ├── notes.tex
 ├── preamble.tex
 ├── references.bib
-├── symbols.tex
-└── tree.md
+└── symbols.tex
 ```
 
 Por conta dos estilos diferentes das aulas, as anotações são redigidas em
 diferentes formatos: temas mais técnicos e concentuais em Latex, conteúdos mais
 focados em código em markdown e jupyter notebook. Dessa forma, no diretório de
 cada módulo poderemos ter misturas desses arquivos. Quando fornecido pelo
-professor, teremos também um documento `exercicios.tex`, com atividades
+professor, podemos ter um documento `exercicios.tex`, com atividades
 complementares, resolvidas e extensivamente comentadas.
 
 O diretório `graphics` contém todas as imagens de apoio que fizemos ao longo do
@@ -64,10 +55,10 @@ Latex.
 
 ## Conteúdo programático
 
-* Módulo 01: Fundamentos de estatística — Prof. Wilson Tarantin Junior
-* Módulo 02: Introdução à programação com python — Prof. Wilson Tarantin Junior
-* Módulo 03: Data Wrangling — Prof. Wilson Tarantin Junior
+* Módulo 01: Fundamentos de estatística — Prof. Dr. Wilson Tarantin Junior
+* Módulo 02: Introdução à programação com python — Prof. Dr. Wilson Tarantin Junior
+* Módulo 03: Data Wrangling — Prof. Dr. Wilson Tarantin Junior
 
---
+---
 
-Atualizado em 2024-10-31 09:00 por Pedro P. Bittencourt
+Atualizado em 2024-11-09 19:20 por Pedro P. Bittencourt

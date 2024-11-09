@@ -1,0 +1,712 @@
+\section{Estatística descritiva}%
+\label{sec:estatistica-descritiva}
+\lesson{1}{Sex 11 out 2023 19:00}{Estatística descritiva}
+
+% -----------------------------------------------------------------------------
+% Anotações gerais -- remover depois
+% Uma prova para o módulo todo, ou seja, disponibilizado ao final da sexta aula
+% (3 estatística + 3 python).
+%
+% O excel da lista complementar não contém apenas as resoluções, parte dos dados
+% dos enunciados também está ali. Poderia ter separado. Porque eu preciso abrir a
+% planilha para iniciar a resolução e já vejo ali as respostas.
+%
+% Chuva e alimento. Perdi aproximadamente 1h de aula, entre 20h e 21h. Acho que
+% ele ficou só nas tabelas de frequência. Retomei no início das medidas de
+% posição. Depois temos que resgatar se algo relevante foi dito e necessita de
+% anotação. Meu palpite é que nada foi perdido.
+% -----------------------------------------------------------------------------
+
+Estrutura tabular de dados é o mais comum de se utilizar. Dimensão linha e
+dimensão coluna. Esse cruzamento resulta numa estrutura tabular --- igual a de
+uma planilha de excel. As unidades de observação estão nas linhas e os
+atributos (variáveis) a serem medidos ou classificados estão nas colunas.
+
+O ponto de partida de uma análise de dados é compreender as características dos
+dados que estão sendo analisados. Isso implica em entender os tipos de
+variáveis envolvidas. Essa distinção é fundamental porque vai determinar a
+escolha da técnica a ser utilizada.
+
+Essa aula tem como foco a \textbf{estatística descritiva}, dada por meio de
+\emph{medidas resumo}. O objetivo principal dessas medidas é representar o
+comportamento da variável em estudo por meio de seus valores centrais e não
+centrais e suas dispersões ou formas de distribuição dos seus valores em torno
+da média.
+Estudaremos medidas de posição ou localização (medidas de tendência central e
+medidas separatrizes), medidas de dispersão ou variabilidade e medidas de
+forma, como assimetria e curtose \parencite[p.~112]{favero}.
+
+Ao longo da \Cref{sec:estatistica-descritiva}, estudaremos o seguinte caso:
+
+\begin{case}
+    Realizou-se uma coleta de preços de um determinado produto em 100
+    diferentes locais de venda, ao longo de um certo intervalo de tempo. A
+    \Cref{tab:medidas-posicao} contém a tabulação desses dados. Na
+    \Cref{tab:medidas-posicao-ordenado}, temos as mesmas informações, ordenadas
+    de forma crescente. Determine as estatísticas descritivas para a variável
+    preço e construa a tabela resumo.
+    \label{eg:coleta-precos}
+\end{case}
+
+\begin{table}
+    \centering
+    \begin{tabular}{cccccccccc}
+    \toprule
+    Observação & preço (R\$) & O  & p      & O  & p      & O   & p \\
+    \midrule
+    1          & 189,00      & 26 & 215,00 & 51 & 199,00 & 76  & 185,00 \\
+    2          & 195,00      & 27 & 149,00 & 52 & 209,00 & 77  & 179,00 \\
+    3          & 199,00      & 28 & 189,00 & 53 & 229,00 & 78  & 169,00 \\
+    4          & 189,00      & 29 & 169,00 & 54 & 199,00 & 79  & 179,00 \\
+    5          & 197,00      & 30 & 179,00 & 55 & 195,00 & 80  & 189,00 \\
+    6          & 189,00      & 31 & 159,00 & 56 & 199,00 & 81  & 199,00 \\
+    7          & 199,00      & 32 & 199,00 & 57 & 179,00 & 82  & 209,00 \\
+    8          & 202,00      & 33 & 195,00 & 58 & 169,00 & 83  & 169,00 \\
+    9          & 199,00      & 34 & 189,00 & 59 & 189,00 & 84  & 159,00 \\
+    10         & 209,00      & 35 & 209,00 & 60 & 205,00 & 85  & 179,00 \\
+    11         & 189,00      & 36 & 196,00 & 61 & 199,00 & 86  & 185,00 \\
+    12         & 179,00      & 37 & 189,00 & 62 & 189,00 & 87  & 189,00 \\
+    13         & 175,00      & 38 & 165,00 & 63 & 189,00 & 88  & 179,00 \\
+    14         & 199,00      & 39 & 170,00 & 64 & 199,00 & 89  & 199,00 \\
+    15         & 205,00      & 40 & 179,00 & 65 & 179,00 & 90  & 199,00 \\
+    16         & 219,00      & 41 & 170,00 & 66 & 189,00 & 91  & 189,00 \\
+    17         & 229,00      & 42 & 175,00 & 67 & 239,00 & 92  & 169,00 \\
+    18         & 205,00      & 43 & 169,00 & 68 & 215,00 & 93  & 159,00 \\
+    19         & 190,00      & 44 & 189,00 & 69 & 199,00 & 94  & 169,00 \\
+    20         & 179,00      & 45 & 195,00 & 70 & 179,00 & 95  & 209,00 \\
+    21         & 199,00      & 46 & 199,00 & 71 & 195,00 & 96  & 189,00 \\
+    22         & 189,00      & 47 & 199,00 & 72 & 199,00 & 97  & 179,00 \\
+    23         & 183,00      & 48 & 199,00 & 73 & 209,00 & 98  & 189,00 \\
+    24         & 199,00      & 49 & 189,00 & 74 & 205,00 & 99  & 199,00 \\
+    25         & 206,00      & 50 & 182,00 & 75 & 179,00 & 100 & 195,00 \\
+    \bottomrule
+    \end{tabular}
+    \caption{Preços de um produto coletado em 100 pontos de venda}
+    \label{tab:medidas-posicao}
+\end{table}
+
+\begin{table}
+    \centering
+    \begin{tabular}{cccccccccc}
+    \toprule
+    Posição  & preço (R\$) & P  & p      & P  & p      & P   & p \\
+    \midrule
+    1        & 149,00      & 26 & 179,00 & 51 & 189,00 & 76  & 199,00 \\
+    2        & 159,00      & 27 & 179,00 & 52 & 189,00 & 77  & 199,00 \\
+    3        & 159,00      & 28 & 179,00 & 53 & 190,00 & 78  & 199,00 \\
+    4        & 159,00      & 29 & 179,00 & 54 & 195,00 & 79  & 199,00 \\
+    5        & 165,00      & 30 & 182,00 & 55 & 195,00 & 80  & 199,00 \\
+    6        & 169,00      & 31 & 183,00 & 56 & 195,00 & 81  & 199,00 \\
+    7        & 169,00      & 32 & 185,00 & 57 & 195,00 & 82  & 199,00 \\
+    8        & 169,00      & 33 & 185,00 & 58 & 195,00 & 83  & 202,00 \\
+    9        & 169,00      & 34 & 189,00 & 59 & 195,00 & 84  & 205,00 \\
+    10       & 169,00      & 35 & 189,00 & 60 & 196,00 & 85  & 205,00 \\
+    11       & 169,00      & 36 & 189,00 & 61 & 197,00 & 86  & 205,00 \\
+    12       & 169,00      & 37 & 189,00 & 62 & 199,00 & 87  & 205,00 \\
+    13       & 170,00      & 38 & 189,00 & 63 & 199,00 & 88  & 206,00 \\
+    14       & 170,00      & 39 & 189,00 & 64 & 199,00 & 89  & 209,00 \\
+    15       & 175,00      & 40 & 189,00 & 65 & 199,00 & 90  & 209,00 \\
+    16       & 175,00      & 41 & 189,00 & 66 & 199,00 & 91  & 209,00 \\
+    17       & 179,00      & 42 & 189,00 & 67 & 199,00 & 92  & 209,00 \\
+    18       & 179,00      & 43 & 189,00 & 68 & 199,00 & 93  & 209,00 \\
+    19       & 179,00      & 44 & 189,00 & 69 & 199,00 & 94  & 209,00 \\
+    20       & 179,00      & 45 & 189,00 & 70 & 199,00 & 95  & 215,00 \\
+    21       & 179,00      & 46 & 189,00 & 71 & 199,00 & 96  & 215,00 \\
+    22       & 179,00      & 47 & 189,00 & 72 & 199,00 & 97  & 219,00 \\
+    23       & 179,00      & 48 & 189,00 & 73 & 199,00 & 98  & 229,00 \\
+    24       & 179,00      & 49 & 189,00 & 74 & 199,00 & 99  & 229,00 \\
+    25       & 179,00      & 50 & 189,00 & 75 & 199,00 & 100 & 239,00 \\
+    \bottomrule
+    \end{tabular}
+    \caption{Valores de \Cref{tab:medidas-posicao}, ordenados de modo crescente}
+    \label{tab:medidas-posicao-ordenado}
+\end{table}
+
+\subsection{Medidas de posição}%
+
+\subsubsection{Média}
+A média aritmética simples $\overline{x}$ dos $x$ elementos de um conjunto é
+dada pela expressão
+\begin{equation}
+    \overline{x} = \frac{1}{n} \cdot \sum_{i=1}^{n} x_i
+    \label{eq:media}
+\end{equation}
+em que $n$ é a quantidade de elementos do conjunto e $x_i$ representa cada
+um desses valores. No \Cref{eg:coleta-precos}, tem-se que a média das
+observações é dada por
+\begin{align*}
+    \overline{x} &= \frac{189+195+199 + \ldots + 189+199+195 }{100} \\
+                 &= \frac{19077}{100} \\
+                 &= 190.77
+\end{align*}
+
+\subsubsection{Média ponderada}
+No caso da média aritmética simples, todas as ocorrências têm o mesmo peso,
+isto é, a mesma frequência (ou importância). Se atribuirmos pesos $p_i$ para
+cada valor $x_i$ da variável $X$, podemos calcular a média aritmética ponderada
+$\overline(x)$, dada por:
+\begin{equation}
+    \overline{x} = \frac{\sum_{i=1}^{n} x_i \cdot p_i}{\sum_{i=1}^{n} p_i}
+    \label{eq:media-ponderada}
+\end{equation}
+Se o peso estiver expresso de forma relativa ao total ($f_i$), podemos
+reescrever a \Cref{eq:media-ponderada} como:
+\begin{equation}
+    \overline{x} = \sum_{i=1}^{n} x_i \cdot f_i
+    \label{eq:media-ponderada-relativa}
+\end{equation}
+Todo mundo que passou pela escola já lidou com isso. Imaginemos que, no ensino
+médio, a nota bimestral era composta por três avaliações, todas valendo entre 0
+e 10, mas com diferentes importâncias:
+\begin{itemize}
+    \item mensal, de peso 2;
+    \item bimestral, de peso 2;
+    \item contínua, de peso 1.
+\end{itemize}
+Um estudante fictício, Pedro, obteve, respectivamente, as seguintes notas: 8, 9
+e 7. Utilizando a \Cref{eq:media-ponderada}, temos que sua nota bimestral
+$\overline{x}$ é dada por:
+ \[
+    \overline{x} = \frac{2 \cdot 8 + 2 \cdot 9 + 1 \cdot 7}{2 + 2 + 1}
+    = \frac{41}{5} = 8.2
+\]
+Isso é equivalente a dizer que ele teve duas notas bimestrais, duas mensais e
+uma contínua, totalizando cinco notas. Podemos representar os pesos dessas
+avaliações como sendo respectivamente iguais a 0.4, 0.4 e 0.2 --- 40\%, 40\% e
+20\%. Ou seja, a avaliação mensal, por exemplo, compõe 40\% da sua nota final.
+É importante notar que a soma dessas frequências deve sempre ser igual a 1.
+Deste modo, utilizando a \Cref{eq:media-ponderada-relativa}, temos que sua nota
+bimestral $\overline{x}$ é dada por:
+ \[
+    \overline{x} = 0.4 \cdot 8 + 0.4 \cdot 9 + 0.2 \cdot 7 = 8.2
+\]
+
+\subsubsection{Mediana}
+Dispondo-se dos $n$ valores do conjunto em rol, tem-se que a mediana $Md$ é
+dada por:
+\begin{equation}
+    \begin{split}
+    Md =
+    \begin{cases}
+        x_i \textrm{, com } i = \frac{n+1}{2} & \textrm{, se } n \textrm{ for ímpar} \\
+        \frac{x_i + x_{i+2}}{2} \textrm{, com } i = \frac{n}{2} & \textrm{, se } n \textrm{ for par}
+    \end{cases}
+    \end{split}
+\end{equation}
+De forma menos rigorosa, podemos definir a determinação da mediana da
+seguinte maneira:
+\begin{enumerate}
+    \item Ordena-se todos os elementos do conjunto, de forma crescente
+    --- a este ordenamento chamamos de \emph{rol}.
+    \item Se o conjunto tiver quantidade \emph{ímpar} de elementos, a
+    mediana corresponde ao termo que está no centro da distribuição.
+    \item Se a quantidade for \emph{par}, dividimos o conjunto ao meio e
+    tomamos os dois elementos que determinam essa divisão --- o último do
+    grupo à esquerda e o primeiro do grupo à direita. A média aritmética
+    simples entre esses elementos corresponderá à mediana.
+\end{enumerate}
+
+Para o \Cref{eg:coleta-precos}, o número de observações é par. A mediana $Md$
+é dada pela média entre os 50º e 51º elementos:
+\[
+Md=\frac{189+189}{2}=189
+\]
+
+\subsubsection{Moda}
+A moda de um conjunto de dados corresponde ao elemento que ocorre com a maior
+frequência --- a moda do conjunto $[1,2,2,3,5]$ é $2$, por exemplo.
+
+Analisando os dados do \Cref{eg:coleta-precos}, a partir da
+\Cref{tab:medidas-posicao-ordenado}, pode-se mostrar que a observação mais
+frequente e, portanto, a moda do conjunto, é dada por 199.
+
+\subsubsection{Percentis}
+\label{subsub:percentis}
+
+A posição $P$ do i-ésimo percentil $p_i$ de uma distribuição é determinada por:
+\begin{equation}
+    P(p_i)=\left[(n-1) \cdot \left(\frac{i}{100}\right)\right] + 1
+    \label{eq:pos-percentil}
+\end{equation}
+Vamos determinar a posição do 25º percentil $p_{25}$ da amostra indicada pela
+\Cref{tab:medidas-posicao-ordenado} --- note que o 25º percentil corresponde
+também ao primeiro quartil da amostra.
+\begin{align*}
+    P(p_{25})&=\left[(n-1) \cdot \left(\frac{i}{100}\right)\right] + 1 \\
+             &=\left[(100-1) \cdot \left(\frac{25}{100}\right)\right] + 1 \\
+             &=99 \cdot 0.25 + 1 \\
+             &=25.75
+\end{align*}
+Isso indica que a observação que determina o primeiro quartil está entre as
+posições 25 e 26. De acordo com a \Cref{tab:medidas-posicao-ordenado},
+observa-se que em ambas as posições as observações possuem o mesmo valor
+e, portanto, este corresponde ao primeiro quartil. Ou seja:
+\[
+    p_{25}=179
+\]
+
+Como interpretamos essa informação: podemos dizer que 25\% dos produtos custam
+R\$ 179,00 ou menos, enquanto os outros 75\% custam mais do que R\$ 179,00.
+
+Nessa amostra, dado que as observações 25 e 26 possuem o mesmo valor, não é
+necessário nenhum passo adicional para determinar o percentil.
+
+Quando esses valores forem diferentes, precisamos realizar a
+\emph{interpolação} entre eles. Utilizando a \Cref{eq:pos-percentil},
+pode-se mostrar que $P(p_{60})=60.4$. Da
+\Cref{tab:medidas-posicao-ordenado}, temos que os elementos das posições 60 e 61
+são, respectivamente, iguais a 196 e 197. Devemos encontrar o elemento que
+está, a partir de 196, a 40\% da distância entre 196 e 197 --- analogamente,
+ele também está a 60\% dessa distância. Matematicamente:
+
+\begin{align*}
+    p_{60} &= 196 + 0.4 \cdot (197-196) \\
+           &= 196 + 197 \cdot 0.4 - 196 \cdot 0.4 \\
+           &= 196 \cdot 0.6 + 197 \cdot 0.4 \\
+           &= 196.4
+\end{align*}
+
+\subsection{Medidas de dispersão}%
+\label{subsub:medidas-dispersao}
+
+\subsubsection{Amplitude}
+
+É a medida mais simples de dispersão. A amplitude $A$ é dada pela diferença
+entre os valores máximo e mínimo do conjunto de observações:
+
+\begin{equation}
+    A = x_{\textrm{máx}} - x_{\textrm{mín}}
+    \label{eq:amplitude}
+\end{equation}
+
+Para o caso do \Cref{eg:coleta-precos} a amplitude $A$ é dada por:
+\[
+A=239.00-149.00=90
+\]
+
+\subsubsection{Desvio médio}
+
+O desvio $D_i$ de um elemento é a diferença entre cada valor do conjunto e a
+média aritmética deste conjunto. Matematicamente:
+\[
+    D_i = x_i - \overline{x}
+\]
+O desvio médio $D_m$ é a média dos desvios \textbf{absolutos} de cada elemento,
+isto é, tratados em módulo:
+\begin{equation}
+    D_m = \frac{1}{n} \cdot \sum_{i=1}^{n} \lvert x_i - \overline{x} \rvert
+    \label{eq:desvio-medio}
+\end{equation}
+Em relação ao \Cref{eg:coleta-precos}, o desvio médio $D_m$ é dado por:
+\begin{align*}
+    D_m &= \frac{1}{100} \cdot \Big( \\
+    &\lvert 189.00-190.77 \rvert + \lvert 195.00-190.77 \rvert + \lvert 199.00-190.77 \rvert + \\
+    &+ \ldots + \\
+    &\lvert 189.00-190.77 \rvert + \lvert 199.00-190.77 \rvert + \lvert 195.00-190.77 \rvert \\
+    \Big) &\implies \\
+    D_m &= \frac{1.77 + 4.23 + 8.23 + \ldots + 1.77 + 8.23 + 4.23}{100} \implies \\
+    D_m &= \frac{1207.62}{100} \therefore \\
+    D_m &= 12.08
+\end{align*}
+
+\subsubsection{Variância}
+
+Dispersão das observações de uma variável em torno de sua média. A variância
+$\sigma^2$ pode ser determinada pela expressão
+\begin{equation}
+    \sigma^2 = \frac{1}{(n-1)} \cdot \sum_{i=1}^{n} (x_i - \overline{x})^2
+    \label{eq:variancia}
+\end{equation}
+em que $n$ representa o tamanho da amostra, $x_i$ representa o i-ésimo elemento
+da amostra e $\overline{x}$ indica a média aritmética simples das observações.
+
+Usando dados da \Cref{tab:medidas-posicao}, vemos que a variância das
+observações no \Cref{eg:coleta-precos} é determinada por
+
+\begin{align*}
+    \sigma^2 &= \frac{1}{99} \cdot \Big( \\
+    &(189.00-190.77)^2 + (195.00-190.77)^2 + (199.00-190.77)^2 + \\
+    &+ \ldots + \\
+    &(189.00-190.77)^2 + (199.00-190.77)^2 + (195.00-190.77)^2 \\
+    \Big) &\implies \\
+    \sigma^2 &= \frac{3.13 + 17.89 + 67.73 + \ldots + 3.13 + 67.73 + 17.89}{99} \implies \\
+    \sigma^2 &= \frac{24157.71}{99} \therefore \\
+    \sigma^2 &= 244.02
+\end{align*}
+
+\subsubsection{Desvio-padrão}
+
+Interpretar a dispersão a partir da variância é pouco viável, dado que a
+dimensão está elevada ao quadrado. Utiliza-se, então, o desvio-padrão em
+relação à amostra, determinado pela expressão
+\begin{equation}
+    \sigma = \sqrt{\sigma^2}
+    \label{eq:desvio-padrao}
+\end{equation}
+No \Cref{eg:coleta-precos}, o desvio-padrão em relação à amostra é dado por
+\[
+\sigma=\sqrt{244.02}=15.621
+\]
+Isso sugere que a maior parte dos valores da amostra está distribuída dentro de
+um intervalo de aproximadamente R\$ 15.62 reais acima ou abaixo da média. Ou
+seja, grande parte dos dados está entre $190.77-15.62=175.15$ e
+$190.77+15.62=206.39$.
+
+\subsubsection{Erro padrão}
+
+Corresponde ao desvio-padrão da média e pode ser obtido pela expressão
+\begin{equation}
+    \sigma_{\overline{x}} = \frac{\sigma}{\sqrt{n}}
+    \label{eq:erro-padrao}
+\end{equation}
+Para o \Cref{eg:coleta-precos}, tem-se que o erro padrão é dado por
+\[
+    \sigma_{\overline{x}}=\frac{15.621}{\sqrt{100}}=1.562
+\]
+
+\subsubsection{Coeficiente de variação}
+
+O coeficiente de variação $CV$ é uma medida de dispersão relativa que fornece a
+variação dos dados em relação à sua média.
+\begin{equation}
+    CV = \frac{\sigma}{\overline{x}}
+    \label{eq:coef-variacao}
+\end{equation}
+Quanto menor o coeficiente de variação, mais homogêneos são os dados, isto é,
+menor a dispersão em torno da média. Um CV pode ser considerado baixo,
+indicando um conjunto de dados razoavelmente homogêneo, quando for menor do que
+30\%. Se esse valor for acima de 30\%, o conjunto de dados pode ser considerado
+heterogêneo \parencite[p.~159]{favero}. Em relação ao \Cref{eg:coleta-precos},
+tem-se que o coeficiente de variação é dado por
+\[
+CV = \frac{15.621}{190.77} = 0.08188 = 8.19\%
+\]
+Observa-se que os dados são homogêneos, indicando que a média é uma boa medida
+para representá-los.
+
+\subsection{Medidas de forma}%
+
+Estudaremos medidas de assimetria (\emph{skewness}) e curtose
+(\emph{kurtosis}), que caracterizam como os elementos do conjunto estão
+distribuídos em torno da média.
+
+\subsubsection{Medidas de assimetria}
+
+Uma distribuição é dita \textbf{simétrica} quando sua média, mediana e moda
+coincidem. A curva de distribuição é bem representada pela
+\Cref{fig:dist-simetrica}; o eixo das abscissas representa o valor da
+observação, enquanto o eixo das ordenadas indica a frequência desse valor na
+distribuição.
+
+\begin{figure}[htpb]
+    \centering
+    \input{graphics/dist_simetrica.pdf_tex}
+    \caption{Representação de uma distribuição simétrica}
+    \label{fig:dist-simetrica}
+\end{figure}
+
+Se a distribuição se concentrar do lado esquerdo, criando uma ``cauda''
+alongada no lado direito, temos uma \textbf{distribuição assimétrica positiva}
+ou \textbf{distribuição assimétrica à direita}---\Cref{fig:dist-direita}.
+Estando a distribuição concentrada do lado direito, portanto com a ``cauda''
+alongada no lado esquerdo, temos uma \textbf{distribuição assimétrica negativa}
+ou \textbf{distribuição assimétrica à esquerda}---\Cref{fig:dist-esquerda}.
+
+\begin{figure}[ht!]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        % \resizebox{\textwidth}{!}{\input{image1.pdf}}
+        \input{graphics/dist_direita.pdf_tex}
+        \caption{Distribuição assimétrica à direita}
+        \label{fig:dist-direita}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \input{graphics/dist_esquerda.pdf_tex}
+        \caption{Distribuição assimétrica à esquerda}
+        \label{fig:dist-esquerda}
+    \end{subfigure}
+    \caption{Representação de distribuições assimétricas}
+    \label{fig:dist-assimetrica}
+\end{figure}
+
+Vejamos maneiras de determinar os coeficientes de assimetria.
+
+\paragraph{Primeiro coeficiente de assimetria de Pearson}
+Medida de assimetria dada pela diferença entre a média e a moda, ponderada pelo
+desvio-padrão \parencite[p.~161]{favero}. Matematicamente, pode-se expressar o
+primeiro coeficiente de assimetria de Pearson $A_{s_1}$ como
+\begin{equation}
+    A_{s_1} = \frac{\overline{x} - Mo}{\sigma}
+    \label{eq:prim-coef-ass-pearson}
+\end{equation}
+em que:
+\begin{itemize}
+    \item se $A_{s_1}$ é igual a $0$, a distribuição é simétrica.
+    \item se $A_{s_1}$ é maior do que $0$, a distribuição é assimétrica à
+    direita --- distribuição positiva.
+    \item se $A_{s_1}$ é menor do que $0$, a distribuição é assimétrica à
+    esquerda --- distribuição negativa.
+\end{itemize}
+
+Retomando o \Cref{eg:coleta-precos}, determinemos $A_{s_1}$:
+\[
+    A_{s_1} = \frac{190.77 - 199}{15.621} = \frac{-8.23}{15.621} = -0.527
+\]
+Observa-se que $A_{s_1}<0$, indicando uma distribuição assimétrica à
+esquerda---representada pela \Cref{fig:dist-esquerda}. Na imagem, pode-se notar
+também que, para esse tipo de distribuição, $\overline{x}<Md<Mo$. Entretanto,
+na situação em estudo, nota-se que $Md<\overline{x}<Mo$.
+\conferir{Isso não está de acordo com nosso estudo de caso, precisamos
+entender!}
+
+\paragraph{Segundo coeficiente de assimetria de Pearson}
+Medida de assimetria que não é dada em função da moda da distribuição. O
+segundo coeficiente de assimetria de Pearson $A_{s_2}$ é determinado por:
+\begin{equation}
+    A_{s_2} = \frac{3 \cdot (\overline{x} - Md)}{\sigma}
+    \label{eq:seg-coef-ass-pearson}
+\end{equation}
+As relações de assimetria são iguais para segundo e primeiro coeficientes, isto
+é:
+\begin{itemize}
+    \item se $A_{s_2}=0$, a distribuição é simétrica.
+    \item se $A_{s_2}>0$, a distribuição é positiva.
+    \item se $A_{s_2}<0$, a distribuição é negativa.
+\end{itemize}
+Determinando o segundo coeficiente de assimetria de Pearson para o
+\Cref{eg:coleta-precos}, temos:
+\[
+    A_{s_2} = \frac{3 \cdot (190.77-189)}{15.621} = \frac{5.31}{15.621} = 0.340
+\]
+Podemos notar que $A_{s_2}>0$, denotando uma assimetria positiva, isto é, à
+direita---representada pela \Cref{fig:dist-direita}. Temos um conflito com o
+cálculo do primeiro coeficiente, que indicada assimetria em sentido contrário.
+Acredito que o segundo seja mais confiável --- na apresentação de slides, o
+\conferir{Essa premissa também deve ser questionada em aula!}
+professor sugere a relação apenas entre média e mediana, desconsiderando a
+moda. Isto é:
+\begin{itemize}
+    \item quando $\overline{x}$ > $Md$, a distribuição é assimétrica à direita
+    (positiva);
+    \item quando $\overline{x}$ < $Md$, a distribuição é assimétrica à esquerda
+    (negativa).
+\end{itemize}
+
+\paragraph{Coeficiente de assimetria de Bowley}
+Também conhecido como \textbf{coeficiente quartílico de assimetria}, o
+coeficiente de assimetria de Bowley $A_{s_B}$ é dado em função das medidas
+separatrizes---primeiro, segundo e terceiro quartis:
+\begin{equation}
+    A_{s_B} = \frac{Q_3+Q_1-2 \cdot Q_2}{Q_3-Q_1}
+    \label{eq:coef-ass-bowley}
+\end{equation}
+De forma análoga aos coeficientes anteriores, tem-se que:
+\begin{itemize}
+    \item se $A_{s_B}=0$, a distribuição é simétrica.
+    \item se $A_{s_B}>0$, a distribuição é assimétrica positiva (à direita).
+    \item se $A_{s_B}<0$, a distribuição é assimétrica negativa (à esquerda).
+\end{itemize}
+Usando a \Cref{eq:coef-ass-bowley} para determinar $A_{s_B}$ no
+\Cref{eg:coleta-precos}, temos:
+\begin{align*}
+    \begin{cases}
+        Q_1 = 179 \\
+        Q_2 = 189 \\
+        Q_3 = 199
+    \end{cases} \implies
+    &A_{s_B} = \frac{199+179-2 \cdot 189}{199-179} \implies \\
+    &A_{s_B} = \frac{378-378}{20} \therefore \\
+    &A_{s_B} = 0
+\end{align*}
+Nota-se que, para o terceiro coeficiente de assimetria determinado, chega-se à
+terceira conclusão diferente.
+\conferir{Não sabemos interpretar o que está acontecendo.}
+
+\paragraph{Coeficiente de assimetria de Fisher}
+É determinado a partir do terceiro momento em torno da média ($M_3$)
+\parencite[p.~165]{favero}:
+\begin{equation}
+    g_1= \frac{n^2 \cdot M_3}{(n-1) \cdot (n-2) \cdot \sigma^3}
+    \label{eq:coef-ass-fisher}
+\end{equation}
+em que
+\begin{equation}
+    M_3= \frac{1}{n} \cdot \sum_{i=1}^{n} (x_i - \overline{x})^3
+    \label{eq:terceiro-momento-media}
+\end{equation}
+Façamos isso ``no braço'' para o \Cref{eg:coleta-precos}, iniciando com a
+determinação de $M_3$ a partir da \Cref{eq:terceiro-momento-media}:
+\begin{align*}
+    M_3 &= \frac{1}{100} \cdot \Big( \\
+    &(189.00-190.77)^3 + (195.00-190.77)^3 + (199.00-190.77)^3 + \\
+    &+ \ldots + \\
+    &(189.00-190.77)^3 + (199.00-190.77)^3 + (195.00-190.77)^3 \\
+    &\Big) \implies \\
+    M_3 &= \frac{-5.55 + 75.69 + 557.44 + \ldots + -5.55 + 557.44 + 75.69}{100} \implies \\
+    M_3 &= \frac{33249.04}{100} \therefore \\
+    M_3 &= 332.49
+\end{align*}
+Utilizando a \Cref{eq:coef-ass-fisher}, temos que $g_1$ é dado por:
+\begin{align*}
+    %
+    g_1 &= \frac{23^2 \cdot 332.49}{22 \cdot 21 \cdot 15.621^3} \\
+        &= \frac{529 \cdot 332.49}{462 \cdot 3811.768} \\
+        &= \frac{175887.21}{1761036.97} \\
+        &= 0.09988 \approx 0.1
+\end{align*}
+Em resumo, o que pudemos determinar até então:
+\begin{itemize}
+    \item Primeiro coeficiente de assimetria de Pearson:
+        $A_{s_1}=-0.527<0$\\
+        --- indica assimetria à esquerda.
+    \item Segundo coeficiente de assimetria de Pearson:
+        $A_{s_2}=0.340>0$\\
+        --- indica assimetria à direita.
+    \item Coeficiente de assimetria de Bowley:
+        $A_{s_B}=0$\\
+        -- indica distribuição simétrica.
+    \item Coeficiente de assimetria de Fisher:
+        $g_1=0.1>0$\\
+        --- indica assimetria à direita.
+\end{itemize}
+Não há convergência total, mas os resultados de $A_{s_2}$ e $g_1$ mostram uma
+certa consistência, indicando que há, de fato, uma distribuição assimétrica
+positiva. Me parece que, para o \Cref{eg:coleta-precos}, tanto o segundo
+coeficiente de Pearson quanto o coeficiente de assimetria de Fisher são os mais
+adequados. \conferir{Confirmar se essa premissa é verdadeira.}
+
+\subsubsection{Medidas de curtose}
+
+A curtose pode ser definida como o grau de achatamento de uma distribuição de
+frequências em relação a uma distribuição teórica que geralmente corresponde à
+distribuição normal \parencite[p.~166]{favero}. Podemos ter:
+\begin{itemize}
+    \item \textbf{Mesocúrtica}: assemelha-se à distribuição normal --- não é
+    muito achatada nem alongada.
+    \item \textbf{Platicúrtica}: apresenta uma curva de frequências mais
+    \emph{achatada} do que a curva normal.
+    \item \textbf{Leptocúrtica}: apresenta uma curva de frequências mais
+    \emph{alongada} do que a curva normal.
+\end{itemize}
+
+\paragraph{Coeficiente de curtose}
+O coeficiente de curtose $k$, também chamado de \emph{coeficiente
+percentílico de curtose} é um dos mais utilizados para medir o grau de
+achatamento da curva de distribuição. Ele é dado por
+\begin{equation}
+    k = \frac{Q_3-Q_1}{2 \cdot (p_{90}-p_{10})}
+    \label{eq:coef-curtose}
+\end{equation}
+em que $Q_1$ e $Q_3$ representam o primeiro e o terceiro quartis,
+respectivamente, enquanto $p_{90}$ e $p_{10}$ representam o 90º e o 10º
+percentis, respectivamente. Interpretamos o resultado da seguinte maneira:
+\begin{itemize}
+    \item $k<0.263$ indica curva \emph{leptocúrtica};
+    \item $k=0.263$ indica curva \emph{mesocúrtica};
+    \item $k>0.263$ indica curva \emph{platicúrtica}.
+\end{itemize}
+
+Vamos determinar $k$ para o \Cref{eg:coleta-precos}. Iniciamos com a
+determinação dos percentis $p_{90}$ e $p_{10}$, usando a
+\Cref{eq:pos-percentil}:
+\begin{align*}
+    P(p_{90}) &= \left[(100-1) \cdot \left(\frac{90}{100}\right)\right] + 1 \\
+              &= 99 \cdot 0.9 + 1 \\
+              &= 90.1 \therefore \\
+    p_{90} &= 209
+\end{align*}
+\begin{align*}
+    P(p_{10}) &= \left[(100-1) \cdot \left(\frac{10}{100}\right)\right] + 1 \\
+              &= 99 \cdot 0.1 + 1 \\
+              &= 10.9 \therefore \\
+    p_{10} &= 169
+\end{align*}
+Dado que $Q_1=179$ e $Q_3=199$, tem-se que:
+\begin{align*}
+    k &= \frac{Q_3-Q_1}{2 \cdot (p_{90}-p_{10})} \\
+      &= \frac{199-179}{2 \cdot (90.1 - 10.9)} \\
+      &= \frac{20}{158.4} \therefore \\
+    k &= 0.126
+\end{align*}
+De acordo com o critério anteriormente mencionado, a curva de distribuição é
+\emph{leptocúrtica}.
+
+\paragraph{Coeficiente de curtose de Fisher}
+O coeficiente de curtose de Fisher $g_2$ é também bastante utilizado para medir
+o grau de achatamento de uma curva de distribuição---no excel, a função
+\texttt{CURT} utiliza tal coeficiente. Ele é calculado a partir do quarto
+momento em torno da média ($M_4$)--- \emph{apud Maroco, 2014}
+\parencite[p.~168]{favero}:
+\revisar{Tenho que mexer nessa parte de \emph{apud}}
+\begin{equation}
+    g_2 = \frac{n^2 \cdot (n+1) \cdot M_4}{(n-1) \cdot (n-2) \cdot (n-3) \cdot \sigma^{4}} -
+        3 \cdot \frac{(n-1)^2}{(n-2) \cdot (n-3)}
+    \label{eq:coef-curtose-fisher}
+\end{equation}
+em que
+\begin{equation}
+    M_4 = \frac{1}{n} \cdot \sum_{i=1}^{n} (x_i - \overline{x})^{4}
+    \label{eq:quarto-momento-media}
+\end{equation}
+Para a \Cref{eq:coef-curtose-fisher}, tem-se que:
+\begin{itemize}
+    \item $g_2<0$ indica curva \emph{platicúrtica}.
+    \item $g_2=0$ indica curva \emph{mesocúrtica};
+    \item $g_2>0$ indica curva \emph{leptocúrtica};
+\end{itemize}
+Determinemos $M_4$ para o \Cref{eg:coleta-precos}:
+\begin{align*}
+    M_4 &= \frac{1}{100} \cdot \Big( \\
+    &(189.00-190.77)^4 + (195.00-190.77)^4 + (199.00-190.77)^4 + \\
+    &+ \ldots + \\
+    &(189.00-190.77)^4 + (199.00-190.77)^4 + (195.00-190.77)^4 \\
+    &\Big) \implies \\
+    M_4 &= \frac{9.82 + 320.16 + 4587.75 + \ldots + 9.82 + 4587.75 + 320.16}{100} \implies \\
+    M_4 &= \frac{2087524.18}{100} \therefore \\
+    M_4 &= 208754.24
+\end{align*}
+Com isso, pode-se utilizar a \Cref{eq:coef-curtose-fisher} para determinar
+$g_2$:
+\begin{align*}
+    g_2 &= \frac{100^2 \cdot (100+1) \cdot 208754.24}{(100-1) \cdot (100-2) \cdot (100-3) \cdot 15.621^{4}} -
+        3 \cdot \frac{(100-1)^2}{(100-2) \cdot (100-3)} \implies \\
+    g_2 &= \frac{210,841,782,400.00}{56,036,155,804.04} -
+        3 \cdot \frac{9,801}{9,506} \implies \\
+    g_2 &= 3.76 - 3.09 \therefore \\
+    g_2 &= 0.67
+\end{align*}
+De acordo com o critério acima mencionado, a curva de distribuição é
+\emph{leptocúrtica}. Isso está de acordo com a determinação feita a partir do
+coeficiente percentílico de curtose.
+
+A \Cref{tab:medidas-resumo-estudo-caso} indica todas as medidas descritivas
+abordadas na \Cref{sec:estatistica-descritiva}, para \Cref{eg:coleta-precos}.
+
+\begin{table}[htpb]
+    \centering
+    \begin{tabular}{lcc}
+    \toprule
+                                      & Preço (R\$) \\
+    \midrule
+    Média                             & 190.77 \\
+    Mediana                           & 189.00 \\
+    Moda                              & 199.00 \\
+    Primeiro quartil                  & 179.00 \\
+    Terceiro quartil                  & 199.00 \\
+    Amplitude                         & 90.00 \\
+    Desvio médio                      & 12.08 \\
+    Variância                         & 244.02 \\
+    Desvio-padrão                     & 15.62 \\
+    Erro padrão                       & 1.56 \\
+    Coeficiente de variação           & 0.0819 \\
+    Coeficiente de assimetria ($g_1$) & 0.1 \\
+    Coeficiente de curtose ($g_2$)    & 0.67 \\
+    \bottomrule
+    \end{tabular}
+    \caption{Estatísticas descritivas para o estudo de caso da
+    \Cref{sec:estatistica-descritiva}}
+    \label{tab:medidas-resumo-estudo-caso}
+\end{table}

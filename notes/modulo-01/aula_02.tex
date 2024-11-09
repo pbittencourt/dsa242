@@ -1,0 +1,1614 @@
+\section{Relação entre variáveis}%
+\label{sec:relacao-entre-variaveis}
+\lesson{2}{Qua 16 out 2023 19:00}{Medidas de análises bivariadas}
+
+Na seção anterior, trabalhamos com análises de apenas uma variável, o que
+denominamos de estatística descritiva univariada. Supondo que tenhamos um banco
+de dados com $n$ variáveis métricas, podemos determinar as medidas-resumo para
+cada uma dessas $n$ variáveis.
+
+Nessa seção, nosso foco será a análise da \emph{relação} entre \textbf{duas}
+variáveis --- a isto denominamos \textbf{análise bivariada}. Inicia-se
+conhecendo o \emph{tipo de variável}:
+\begin{itemize}
+    \item Se as variáveis são \textbf{qualitativas}, utiliza-se análise da
+    \textbf{associação} pelo teste qui-quadrado ($\chi^2$);
+    \item Se as variáveis são \textbf{quantitativas}, utiliza-se a análise da
+    \textbf{correlação} por meio da covariância e do coeficiente de correlação
+    de Pearson.
+\end{itemize}
+
+Para maiores detalhes, conferir o capitulo 3 de \cite{favero}, a partir da
+página 221.
+
+\subsection{Variáveis qualitativas}
+
+\subsubsection{Teste qui-quadrado}%
+
+De um modo geral, iniciamos com uma tabela de \emph{distribuição conjunta} de
+frequências, também chamada de \textbf{tabela de contingência} ou
+\textbf{tabela de classificação cruzada}, representada pela
+\Cref{tab:rep-tab-class-cruzada}. Nela, apresentam-se as \emph{frequências
+absolutas observadas} para cada par de categorias das variáveis.
+
+\begin{table}[htpb]
+\centering
+\begin{tabular}{llllllll}
+    \toprule
+               &          & \multicolumn{5}{c}{Variável Y} & \\
+               \cmidrule(lr){3-7}
+               &          & Cat 1         & Cat 2    & Cat 3    & $\ldots$ & Cat $J$  & \textbf{Total} \\
+               \midrule
+    \multirow{5}{*}{Variável X} & Cat 1    & $n_{11}$ & $n_{21}$ & $n_{31}$ & $\ldots$ & $n_{1j}$ & $\sum_{k=1}^{j} n_{1k}$ \\
+                                & Cat 2    & $n_{21}$ & $n_{22}$ & $n_{32}$ & $\ldots$ & $n_{2j}$ & $\sum_{k=1}^{j} n_{2k}$ \\
+                                & Cat 3    & $n_{31}$ & $n_{32}$ & $n_{33}$ & $\ldots$ & $n_{3j}$ & $\sum_{k=1}^{j} n_{3k}$ \\
+                                & $\ldots$ & $\ldots$ & $\ldots$ & $\ldots$ & $\ldots$ & $\ldots$ & $\ldots$ \\
+                                & Cat $I$  & $n_{i1}$ & $n_{i2}$ & $n_{i3}$ & $\ldots$ & $n_{ij}$ & $\sum_{k=1}^{j} n_{ik}$ \\
+               \midrule
+               & \textbf{Total} & $\sum_{k=1}^{i} n_{k1}$ & $\sum_{k=1}^{i} n_{k2}$ & $\sum_{k=1}^{i} n_{k3}$ & $\ldots$ & $\sum_{k=1}^{i} n_{kj}$ & $N$\\
+    \bottomrule
+\end{tabular}
+\caption{Representação genérica de uma tabela de classificação cruzada}
+\label{tab:rep-tab-class-cruzada}
+\end{table}
+
+Vejamos um exemplo para ilustrar melhor essa ideia \parencite[p.~224]{favero}.
+
+\begin{eg}
+Um estudo com 200 indivíduos de três operadoras de planos de saúde pretendia
+analisar o comportamento conjunto das variáveis $X$ --- operadora de plano de
+saúde --- e $Y$ --- nível de satisfação. A tabela de classificação cruzada é
+dada pela \Cref{tab:satisfacao-operadora}. Determine o valor de $\chi^2$ total
+e avalie se há relação estatisticamente significativa entre as variáveis.
+\label{eg:operadoras-saude}
+\end{eg}
+
+\begin{table}[htpb]
+    \centering
+    \begin{tabular}{lcccc}
+        \toprule
+                     & \multicolumn{3}{c}{Nível de satisfação} & \\
+                     \cmidrule(lr){2-4}
+        Operadora    & Baixo       & Médio       & Alto        & \textbf{Total} \\
+        \midrule
+        \textbf{Total} Health & 40          & 16          & 12          & \textbf{68} \\
+        Viva Vida    & 32          & 24          & 16          & \textbf{72} \\
+        Mena Saúde   & 24          & 32          & 4           & \textbf{60} \\
+        \textbf{Total}        & \textbf{96} & \textbf{72} & \textbf{32} & \textbf{200} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Nível de satisfação de 200 indivíduos com suas operadoras de plano de saúde}
+    \label{tab:satisfacao-operadora}
+\end{table}
+
+\begin{sol}
+Uma análise rápida indica, por exemplo, que 40 indivíduos têm satisfação baixa
+com a operadora Total Health, enquanto 16 indivíduos têm satisfação alta com a
+operadora Vida Vida, ao passo que 32 indivíduos têm satisfação média com a
+operadora Mena Saúde. Pode-se observar também que, dos 200 indivíduos, 68
+possuem contrato com a operadora Total Health, independentemente de seu nivel
+de satisfação. A \Cref{tab:satisfacao-operadora} também mostra que, dos 200
+indivíduos, 32 têm alto nível de satisfação, independentemente da operadora de
+saúde.
+
+Verificaremos se existe associação entre essas variáveis.
+\revisar{O que significa essa verificação?}
+Utilizaremos, para tanto, a análise da estatística qui-quadrado ($\chi^2$).
+Ela mede a discrepância entre uma tabela de contingência \emph{observada} e uma
+tabela de contingência \emph{esperada}, supondo que não há associação entre as
+variáveis estudadas. Se a distribuição de frequências observadas é igual à
+distribuição de frequências esperadas, o resultado do teste qui-quadrado é
+zero. Conclui-se que um valor baixo de $\chi^2$ indica \textbf{independência
+entre as variáveis} \parencite[p.~237]{favero}.
+
+Pode-se determinar $\chi^2$ a partir da expressão
+\begin{equation}
+    \chi^2 = \sum_{i=1}^{I} \sum_{j=1}^{J} \frac{(O_{ij} - E_{ij})^2}{E_{ij}}
+    \label{eq:qui-quadrado}
+\end{equation}
+em que:
+\begin{itemize}
+    \item $O_{ij}$ representa a quantidade de observações na i-ésima categoria
+    da variável $X$ e da j-ésima categoria da variável $Y$;
+    \item $E_{ij}$ representa a frequência esperada de observações na i-ésima
+    categoria da variável $X$ e da j-ésima categoria da variável $Y$;
+    \item $I$ indica a quantidade de categorias (linhas) da variável $X$;
+    \item $J$ indica a quantidade de categorias (colunas) da variável $Y$.
+\end{itemize}
+
+Uma maneira de interpretar a frequência esperada de observações em uma célula
+da tabela é a seguinte: pudemos perceber, da \Cref{tab:satisfacao-operadora},
+que 96 de 200 indivíduos têm nível de satisfação baixo em relação à sua
+operadora de saúde, seja ela qual for. Isso representa 48\% do total. Contudo,
+quando analisamos a correspondência entre o baixo nível de satisfação e cada
+operadora de saúde, verificamos diferentes percentuais: 58,8\% para Total
+Health, 44,4\% para Viva Vida e 24,0\% para Mena Saúde --- verificar
+\Cref{tab:satisfacao-operadora-prop-linha}.
+\textbf{Supondo} que \emph{não houvesse associação} entre as variáveis,
+\emph{seria de se esperar} a \textbf{mesma proporção} de 48\% em relação ao
+total de clientes (total da linha), para cada operadora (cada linha). A esse
+suposto valor podemos dar o nome de frequência esperada de observação.
+
+\begin{table}[htpb]
+    \centering
+    \begin{tabular}{lcccc}
+        \toprule
+                     & \multicolumn{3}{c}{Nível de satisfação} & \\
+                     \cmidrule(lr){2-4}
+        Operadora    & Baixo       & Médio       & Alto        & Total \\
+        \midrule
+        Total Health & 40 (58,8\%) & 16 (23,5\%) & 12 (17,6\%) & \textbf{68 (100\%)} \\
+        Viva Vida    & 32 (44,4\%) & 24 (33,3\%) & 16 (22,2\%) & \textbf{72 (100\%)} \\
+        Mena Saúde   & 24 (40,0\%) & 32 (53,3\%) & 4 (6,7\%)   & \textbf{60 (100\%)} \\
+        Total        & \textbf{96 (48\%)}   & \textbf{72 (36\%)}   & \textbf{32 (16\%)}   & \textbf{200 (100\%)} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Valores observados na \Cref{tab:satisfacao-operadora} com as respectivas proporções em relação ao total geral da linha}
+    \label{tab:satisfacao-operadora-prop-linha}
+\end{table}
+
+Isso sugere que, para determinar a frequência esperada de uma dada observação,
+pode-se prosseguir da seguinte maneira:
+\begin{enumerate}
+    \item dividimos o total da coluna --- total da categoria $I$ na variável
+    $Y$ --- pela quantidade de observações ($N$), obtendo a frequência relativa
+    daquela categoria em relação ao total;
+    \item multiplicamos o valor encontrado pelo total da linha --- total da
+    categoria $J$ na variável $X$.
+\end{enumerate}
+
+Matematicamente, isto equivale a:
+\begin{equation}
+    E_{ij} = \frac{1}{N} \cdot \left( \sum_{k=1}^{I} n_{kj} \cdot \sum_{k=1}^{J} n_{ik} \right)
+    \label{eq:freq-esperada}
+\end{equation}
+
+Utilizando a \Cref{eq:freq-esperada}, pode-se determinar as frequências
+esperadas para o \Cref{eg:operadoras-saude} e obter os resultados indicados
+pela \Cref{tab:satisfacao-operadora-esperada}. De forma concreta, com alguns
+exemplos:
+\begin{itemize}
+    \item Total Health, baixo: $\frac{96 \cdot 68}{200}=32.64$
+    \item Viva Vida, alto: $\frac{32 \cdot 72}{200}=11.52$
+    \item Mena Saúde, médio: $\frac{72 \cdot 60}{200}=21.60$
+\end{itemize}
+
+\begin{table}[htpb]
+    \centering
+    \begin{tabular}{lcccc}
+        \toprule
+                     & \multicolumn{3}{c}{Nível de satisfação} \\
+        \addlinespace
+        Operadora    & Baixo & Médio & Alto \\
+        \midrule
+        Total Health & 32,64 & 24,48 & 10,88 \\
+        Viva Vida    & 34,56 & 25,92 & 11,52 \\
+        Mena Saúde   & 28,80 & 21,60 & 9,60 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Valores esperados para a \Cref{tab:satisfacao-operadora}}
+    \label{tab:satisfacao-operadora-esperada}
+\end{table}
+
+De posse dos resultados da \Cref{tab:satisfacao-operadora-esperada}, podemos
+usar a \Cref{eq:qui-quadrado} e determinar $\chi^2$ para cada observação. A
+\Cref{tab:satisfacao-operadora-qui-quadrado} também indica o valor total,
+isto é, a soma de todos os $\chi^2$ encontrados.
+
+\begin{table}[htpb]
+    \centering
+    \begin{tabular}{lcccc}
+        \toprule
+                     & \multicolumn{3}{c}{Nível de satisfação} \\
+        \addlinespace
+        Operadora    & Baixo & Médio & Alto \\
+        \midrule
+        Total Health & 1,66 & 2,94 & 0,12 \\
+        Viva Vida    & 0,19 & 0,14 & 1,74 \\
+        Mena Saúde   & 0,80 & 5,01 & 3,27 \\
+        \midrule
+        Total        & \multicolumn{3}{c}{$\chi^2 = 15,861$} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Determinação de $\chi^2$ para as observações da \Cref{tab:satisfacao-operadora}}
+    \label{tab:satisfacao-operadora-qui-quadrado}
+\end{table}
+
+Precisamos, agora, avaliar se o resultado encontrado para $\chi^2$
+\emph{rejeita} ou \emph{não rejeita} a chamada \textbf{hipótese nula}. Essa
+parte está bem confusa e demanda maior entendimento que podemos conferir
+posteriormente em outros capítulos do livro e complementar nosso caderno. Mas,
+\info{Quando possível, editar essa parte.}
+em linhas gerais, isso está no contexto do chamado \emph{teste de hipóteses},
+no qual objetiva-se determinar $H_0$, chamado de \textbf{hipótese nula}, e
+$H_1$, chamado de \textbf{hipótese alternativa}. O nível de significância
+$\alpha$ de um teste indica a probabilidade de rejeitar determinada hipótese
+quando ela for verdadeira. O \emph{p-value} representa a probabilidade
+associada ao valor observado da amostra, indicando o menor nível de
+significância que levaria à rejeição da hipótese suposta---quanto mais baixo
+seu valor, menos se pode acreditar da hipótese suposta
+\parencite[p.~239]{favero}.
+
+Esse teste de hipóteses demanda também o entendimento dos \emph{graus de
+liberdade} da distribuição. Eles se referem à quantidade de observações da
+amostra que podem variar de forma independente e aleatória, obtendo, ainda
+assim, o valor em análise. Cada teste estatístico tem um cálculo específico dos
+graus de liberdade. Para o teste qui-quadrado, tem-se que distribuição possui
+$(i-1) \cdot (j-1)$ graus de liberdade. No caso do \Cref{eg:operadoras-saude},
+com $i$ e $j$ iguais a 3, temos 4 graus de liberdade.
+
+Na \Cref{fig:dist-qui-quadrado} temos uma representação de uma distribuição
+qui-quadrado genérica. O valor crítico $x_c$ indica o valor da observação que
+separa a distribuição em duas áreas: à sua esquerda, uma região de não rejeição
+de $H_0$, enquanto, à sua direita, uma região de rejeição de $H_0$. Essa
+última, também chamada de região crítica, pode ser denotada a partir do nível
+de significância $\alpha$. Observe que, na figura, tal região está hachurada. A
+área dessa região corresponde ao percentual $\alpha$ da área total. Ou seja,
+para um nível de significância de 5\%, tem-se uma área de 0,05.
+
+\begin{figure}[htpb]
+    \centering
+    \input{graphics/dist_qui_quadrado.pdf_tex}
+    \caption{Representação de uma distribuição qui-quadrado}
+    \label{fig:dist-qui-quadrado}
+\end{figure}
+
+Isso nos permite duas maneiras de avaliar o resultado de nosso teste:
+\begin{itemize}
+    \item Estabelecer a relação entre $\chi^2$ e $x_c$, ou seja, se $\chi^2$
+    está à direita ou à esquerda de $x_c$;
+    \item Estabelecer a relação entre \emph{p-value} e $\alpha$, isto é, se a
+    área determinada por $\chi^2$ é maior ou menor do que o nível de
+    significância.
+\end{itemize}
+
+\begin{figure}[htpb]
+    \centering
+    \input{graphics/dist_qui_quadrado_pvalor.pdf_tex}
+    \caption{Interpretação do \emph{p-value} em uma distribuição qui-quadrado}
+    \label{fig:dist-qui-quadrado-pvalor}
+\end{figure}
+
+É possível mostrar
+\info{Referenciar onde isso pode ser feito}
+que, para o \Cref{eg:operadoras-saude}, o valor crítico é $x_c=9.48$ e
+\emph{p-value} é igual a 0,003. Dado que $\chi^2 > x_c$ e $\textrm{p-value} <
+\alpha$, conclui-se, portanto, que pode-se rejeitar $H_0$, indicando que há
+relação estatisticamente significativa entre as variáveis observadas; isto é, a
+associação não se dá de forma aleatória.
+\end{sol}
+
+\subsection{Variáveis quantitativas}%
+
+Para o estudo de correlação entre variáveis quantitativas, precisamos entender
+os conceitos de \textbf{covariância} e \textbf{coeficiente de correlação de
+Pearson}.
+
+\subsubsection{Covariância}
+
+A covariância mede a variação conjunta entre duas variáveis quantitativas. Para
+duas variáveis $X$ e $Y$, tem-se que a covariância $cov$ é dada por:
+\begin{equation}
+    cov(X,Y) = \frac{1}{n-1} \cdot \sum_{i=1}^{n} (x_i - \overline{x}) \cdot (y_i - \overline{y})
+    \label{eq:covariancia}
+\end{equation}
+O objetivo dessa medida é indicar se existe alguma variação em uma medida
+conforme outra varia. Isto é:
+\begin{itemize}
+    \item se $x$ aumenta, $y$ aumenta também?
+    \item se $x$ aumenta, $y$ diminui?
+    \item se $x$ aumenta, $y$ pode tanto aumentar quanto diminuir?
+\end{itemize}
+Esse tipo de pergunta é mais facilmente respondido a partir da análise do
+coeficiente de correlação de Pearson.
+
+\subsubsection{Coeficiente de correlação de Pearson}
+
+A partir da \Cref{eq:covariancia}, define-se o coeficiente de correlação de
+Pearson $\rho$, que pode ser determinado por:
+\begin{equation}
+    \rho = \frac{cov(X,Y)}{\sigma_x \cdot \sigma_y} =
+        \frac{1}{(n-1) \cdot \sigma_x \cdot \sigma_y} \cdot
+        \sum_{i=1}^{n} (x_i - \overline{x}) \cdot (y_i - \overline{y})
+    \label{eq:coef-correl-pearson-1}
+\end{equation}
+
+Vimos, com a \Cref{eq:variancia} e com a \Cref{eq:desvio-padrao} ---
+\Cref{subsub:medidas-dispersao} ---
+que o desvio padrão pode ser expresso como:
+\[
+    \sigma = \sqrt{\frac{\sum_{i=1}^{n} (x_i - \overline{x})^2}{n-1}}
+\]
+Substituindo-se em \ref{eq:coef-correl-pearson-1}, pode-se mostrar que $\rho$ é
+também dado por:
+\begin{equation}
+    \rho = \frac{\sum_{i=1}^{n} (x_i - \overline{x}) \cdot (y_i - \overline{y})}
+        {
+            \sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2} \cdot
+            \sqrt{\sum_{i=1}^{n} (y_i - \overline{y})^2}
+        }
+\end{equation}
+
+Como indicado anteriormente, tanto a covariância quanto o coeficiente de
+correlação de Pearson pretendem investigar de que modo $X$ e $Y$ variam. Por
+estar padronizado com os desvios médios, o coef. de correlação é mais simples
+de interpretar, dado que é sempre um valor entre $-1$ e $+1$. Deste modo,
+tem-se que:
+\begin{itemize}
+    \item Se $\rho$ for positivo, dizemos que há relação diretamente
+    proporcional entre $X$ e $Y$. Para $\rho=+1$, temos uma correlação linear
+    positiva perfeita.
+    \item Se $\rho$ for negativo, dizemos que há relação inversamente
+    proporcional entre $X$ e $Y$. Para $\rho=-1$, temos uma correlação linear
+    negativa perfeita.
+\item Se $\rho$ for nulo, não existe correlação entre as variáveis.
+\end{itemize}
+
+\begin{eg}
+O coordenador de um curso deseja analisar se existe correlação entre as
+notas dos alunos nas disciplinas de matemática, física e literatura. Para
+isso, montou uma base com as notas de 30 estudantes nos referidos
+componentes curriculares --- ver \Cref{tab:notas-estudantes}.
+Determine os coeficientes de correlação de Pearson para os pares de
+correlação matemática-física, matemática-literatura e física-literatura.
+\end{eg}
+
+\begin{table}
+    \centering
+    \begin{tabular}{cccc}
+    \toprule
+    Observação & Matemática & Física & Literatura \\
+    \midrule
+    1          & 5,50       & 7,50   & 9,00       \\
+    2          & 9,00       & 8,50   & 5,50       \\
+    3          & 4,50       & 5,00   & 6,50       \\
+    4          & 6,50       & 8,00   & 6,50       \\
+    5          & 7,50       & 6,00   & 5,00       \\
+    6          & 3,00       & 6,00   & 10,00      \\
+    7          & 10,00      & 8,00   & 5,50       \\
+    8          & 9,00       & 8,00   & 6,50       \\
+    9          & 4,50       & 5,50   & 8,00       \\
+    10         & 5,00       & 5,00   & 5,50       \\
+    11         & 3,50       & 5,00   & 7,50       \\
+    12         & 7,50       & 9,00   & 4,50       \\
+    13         & 6,50       & 7,50   & 8,50       \\
+    14         & 8,00       & 9,00   & 5,00       \\
+    15         & 4,00       & 5,00   & 6,50       \\
+    16         & 7,00       & 6,00   & 8,50       \\
+    17         & 7,50       & 7,50   & 6,00       \\
+    18         & 6,00       & 9,00   & 3,00       \\
+    19         & 10,00      & 7,50   & 5,00       \\
+    20         & 9,00       & 10,00  & 5,50       \\
+    21         & 8,00       & 9,00   & 9,00       \\
+    22         & 5,00       & 5,00   & 5,00       \\
+    23         & 4,00       & 3,00   & 7,50       \\
+    24         & 9,50       & 8,00   & 8,50       \\
+    25         & 6,50       & 7,00   & 4,50       \\
+    26         & 7,00       & 7,50   & 8,00       \\
+    27         & 5,00       & 4,50   & 9,00       \\
+    28         & 6,50       & 8,00   & 5,00       \\
+    29         & 8,50       & 6,00   & 6,00       \\
+    30         & 9,75       & 5,00   & 6,50       \\
+    \bottomrule
+    \end{tabular}
+    \caption{Notas de 30 estudantes em matemática, física e literatura}
+    \label{tab:notas-estudantes}
+\end{table}
+
+\begin{sol}
+Podemos usar as equações \ref{eq:media} e \ref{eq:desvio-padrao} para
+determinar as médias e os desvios padrões das notas em cada disciplina. A
+\Cref{tab:notas-estudantes-descritivas} traz esses resultados.
+
+\begin{table}
+    \centering
+    \begin{tabular}{cccc}
+    \toprule
+    Descritivas   & Nota Matemática & Nota Física & Nota Literatura \\
+    \midrule
+    Média         & 6,78            & 6,87        & 6,57            \\
+    Desvio Padrão & 2,05            & 1,72        & 1,72            \\
+    \bottomrule
+    \end{tabular}
+    \caption{Medidas descritivas para as notas dos estudantes}
+    \label{tab:notas-estudantes-descritivas}
+\end{table}
+
+Iniciemos com a correlação entre as notas de matemática e física, que
+chamaremos de $\rho_{mf}$. Usando a \Cref{eq:coef-correl-pearson-1}, temos:
+
+\begin{align*}
+    \rho_{mf} &=
+        \frac{cov(M,F)}{\sigma_m \cdot \sigma_f} \\
+    &= \frac{1}{(n-1) \cdot \sigma_m \cdot \sigma_f} \cdot
+        \sum_{i=1}^{n} (m_i - \overline{m}) \cdot (f_i - \overline{f}) \\
+    &= \frac{1}{29 \cdot 2.05 \cdot 1.72} \cdot \Big( \\
+            & \quad \quad (5.50 - 6.78) \cdot (7.50 - 6.87) + \\
+            & \quad \quad (9.00 - 6.78) \cdot (8.50 - 6.87) + \\
+            & \quad \quad (4.50 - 6.78) \cdot (5.00 - 6.87) + \\
+            & \quad \quad \ldots + \\
+            & \quad \quad (6.50 - 6.78) \cdot (8.00 - 6.87) + \\
+            & \quad \quad (8.50 - 6.78) \cdot (6.00 - 6.87) + \\
+            & \quad \quad (9.75 - 6.78) \cdot (5.00 - 6.87) \\
+            & \quad \Big) \\
+    &= \frac{-0.807 + 3.634 + 4.247 + \ldots + -0.312 + -1.495 + -5.553}{102.25} \therefore \\
+    \rho_{mf} &= 0.602
+\end{align*}
+
+O valor $\rho_{mf}=0.602$ sugere uma correlação linear positiva, indicando uma
+proporção direta e relativamente grande entre as notas de matemática e física.
+Ou seja, bons estudantes numa disciplina tendem para um bom desempenho na
+outra, enquanto estudantes com dificuldade numa tendem a manifestar dificuldade
+também na outra.
+
+Determinemos agora a correlação $\rho_{ml}$ entre as notas de matemática e de
+literatura:
+
+\begin{align*}
+    \rho_{ml} &=
+        \frac{cov(M,L)}{\sigma_m \cdot \sigma_l} \\
+    &= \frac{1}{(n-1) \cdot \sigma_m \cdot \sigma_l} \cdot
+        \sum_{i=1}^{n} (m_i - \overline{m}) \cdot (l_i - \overline{l}) \\
+    &= \frac{1}{29 \cdot 2.05 \cdot 1.72} \cdot \Big( \\
+            & \quad \quad (5.50 - 6.78) \cdot (9.00 - 6.57) + \\
+            & \quad \quad (9.00 - 6.78) \cdot (5.50 - 6.57) + \\
+            & \quad \quad (4.50 - 6.78) \cdot (6.50 - 6.57) + \\
+            & \quad \quad \ldots + \\
+            & \quad \quad (6.50 - 6.78) \cdot (5.00 - 6.57) + \\
+            & \quad \quad (8.50 - 6.78) \cdot (6.00 - 6.57) + \\
+            & \quad \quad (9.75 - 6.78) \cdot (6.50 - 6.57) \\
+            & \quad \Big) \\
+    &= \frac{-3.103 -2.373 + 0.152 + \ldots + 0.431 -0.978 -0.198}{102.25} \therefore \\
+    \rho_{ml} &= -0.309
+\end{align*}
+
+Temos uma correlação linear negativa, sugerindo que bons estudantes numa
+disciplina não tendem a um bom desempenho também na outra. Em módulo, o valor
+de $\rho_{ml}$ não é tão alto, sugerindo que tal correlação não é muito forte.
+
+Determinemos, por fim, a correlação $\rho_{fl}$ entre as notas de física e de
+literatura:
+
+\begin{align*}
+    \rho_{fl} &=
+        \frac{cov(F,L)}{\sigma_f \cdot \sigma_l} \\
+    &= \frac{1}{(n-1) \cdot \sigma_f \cdot \sigma_l} \cdot
+        \sum_{i=1}^{n} (f_i - \overline{f}) \cdot (l_i - \overline{l}) \\
+    &= \frac{1}{29 \cdot 1.72 \cdot 1.72} \cdot \Big( \\
+            & \quad \quad (7.50 - 6.87) \cdot (9.00 - 6.57) + \\
+            & \quad \quad (8.50 - 6.87) \cdot (5.50 - 6.57) + \\
+            & \quad \quad (5.00 - 6.87) \cdot (6.50 - 6.57) + \\
+            & \quad \quad \ldots + \\
+            & \quad \quad (8.00 - 6.87) \cdot (5.00 - 6.57) + \\
+            & \quad \quad (6.00 - 6.87) \cdot (6.00 - 6.57) + \\
+            & \quad \quad (5.00 - 6.87) \cdot (6.50 - 6.57) \\
+            & \quad \Big) \\
+    &= \frac{1.541 -1.742 + 0.124 + \ldots -1.776 + 0.491 + 0.124}{85.79} \therefore \\
+    \rho_{ml} &= -0.288
+\end{align*}
+
+Assim como na comparação matemática-literatura, a correlação entre as notas de
+física e de literatura é linear negativa, com módulo um pouco menor do que a
+anterior --- isso sugere que a correlação não é tão forte.
+\end{sol}
+
+\section{Distribuições de probabilidades}%
+\label{sec:dist-probab}
+
+Nas seções anteriores, descrevemos variáveis qualitativas e quantitativas a
+partir de suas estatísticas descritivas. Vimos também como relacionar variáveis
+a partir de medidas de correlação. Essa seção tem como objetivo verificar como
+a frequência de uma dada observação está distribuída em relação ao todo.
+Dizendo de outro modo, poderemos observar quais valores são mais frequentes em
+nosso conjunto de dados e se essas frequências estão \emph{distribuídas} de
+alguma maneira em particular. Conferir Capítulo 5 de \cite{favero}, a partir da
+página 305.
+
+Estudaremos o comportamento de variáveis aleatórias discretas e contínuas. Para
+o primeiro grupo, podemos utilizar as seguintes distribuições:
+
+\begin{itemize}
+    \item uniforme discreta
+    \item Bernoulli
+    \item binomial
+    \item geométrica
+    \item binomial negativa
+    \item hipergeométrica
+    \item Poisson
+\end{itemize}
+
+Para o segundo grupo, teremos:
+
+\begin{itemize}
+    \item uniforme
+    \item normal
+    \item exponencial
+    \item Gama
+    \item qui-quadrado ($\chi^2$)
+    \item \emph{t} de Student
+    \item \emph{f} de Snedecor
+\end{itemize}
+
+\subsection{Definições gerais}%
+
+\paragraph{Espaço amostral}
+É o conjunto de todos os resultados possíveis de um experimento aleatório.
+Convenciona-se descrever esse experimento a partir da associação de valores
+numéricos aos elementos do espaço amostral. A variável aleatória pode ser
+caracterizada como aquela que apresenta um valor único para cada elemento,
+sendo esse valor determinado aleatoriamente. Uma variável aleatória $x$
+representa um valor numérico associado a cada resultado de um experimento
+probabilístico (ou aleatório).
+
+\begin{definition}[Espaço amostral]
+    Consideremos $\varepsilon$ um experimento aleatório e $S$ o espaço amostral
+    associado ao experimento. Podemos entender a \textbf{variável aleatória}
+    $X$ como a função $f$ que associa cada elemento $s \in S$ a um número real
+    $x$.
+    \label{def:espaco-amostral}
+\end{definition}
+
+\paragraph{Variáveis aleatórias}
+Uma variável aleatória é dita \textbf{discreta} quando tem um número finito
+ou \emph{contável} de resultados possíveis que podem ser enumerados. Uma
+variável aleatória é \textbf{contínua} quando tem um número
+\emph{incontável} de resultados possíveis, representados por um intervalo
+na reta numerada \cite{larson}.
+
+\paragraph{Esperança de uma variável aleatória discreta}
+Seja $X$ uma variável aleatória discreta que pode assumir os valores $x$,
+em que
+\[
+    x \in [x_1, x_2, x_3, \ldots, x_n]
+\]
+As respectivas probabilidades de ocorrência de cada valor são dadas por
+$p(x)$, em que
+\[
+    p(x) \in [p(x_1), p(x_2), p(x_3), \ldots, p(x_n)]
+\]
+Define-se \emph{esperança} (valor esperado ou médio) de $X$ como:
+\begin{equation}
+E(X) = \sum_{i=1}^{n} x_i \cdot p(x_i)
+\label{eq:esperanca-discreta}
+\end{equation}
+
+Pode-se notar que isso se parece muito com uma média ponderada pelas
+probabilidades. Vejamos com um exemplo \parencite[p~.307]{favero}:
+
+\begin{eg}
+A venda mensal de imóveis de um determinado corretor segue a distribuição
+de probabilidades indicada pela \Cref{tab:dist-venda-imoveis}.
+Determine o valor esperado de sua venda mensal.
+\end{eg}
+
+\begin{table}
+    \centering
+    \begin{tabular}{cc}
+        \toprule
+        $x$ vendas & $p(x)$ \\
+        \midrule
+        0 & 0.2 \\
+        1 & 0.4 \\
+        2 & 0.3 \\
+        3 & 0.1 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Distribuição de probabilidades da venda mensal de imóveis}
+    \label{tab:dist-venda-imoveis}
+\end{table}
+
+\begin{sol}
+Usando a \Cref{eq:esperanca-discreta}, temos que $E(X)$ é dado
+por:
+ \[
+E(X) = 0 \cdot 0.2 + 1 \cdot 0.4 + 2 \cdot 0.3 + 3 \cdot 0.1 = 1.3
+\]
+
+Isso significa que o \emph{valor médio} dessa distribuição de probabilidades é
+igual a $1.3$. Podemos entender isso como uma média das probabilidades. Apesar da
+similaridade com a \Cref{eq:media-ponderada-relativa}, façamos uma distinção
+aqui: no caso da média aritmética ponderada, cada valor é multiplicado pela sua
+frequência \textbf{observada}, isto é, aquilo que se verifica no experimento
+ocorrido. Já para o cálculo de $E(X)$, o valor da variável aleatória é
+multiplicado pela sua \emph{probabilidade de ocorrência}, no contexto de um
+experimento probabilístico.
+\end{sol}
+
+\paragraph{Esperança de uma variável aleatória contínua}
+
+Uma variável aleatória contínua $X$ está associada a uma
+\emph{função densidade de probabilidade} $f(x)$ que satisfaz à seguinte
+condição:
+
+\begin{equation}
+    \int_{{-\infty}}^{{+\infty}} {f(x)} \: d{x} {} = 1
+\end{equation}
+
+Isso pode ser interpretado da seguinte maneira: vimos, na seção anterior, que a
+soma de todas as probabilidades é sempre igual a $1$. Dada sua natureza
+contínua, tal soma é feita a partir da integração da função $f(x)$ em todo o
+intervalo para o qual existe $x$. Nesse cenário, é importante também definir
+que
+\[
+f(x) \geq 0
+\]
+para todo $x \in \R$.
+
+Define-se a probabilidade da variável assumir valores aleatórios entre um
+intervalo $a$ e $b$ como
+
+\begin{equation}
+    P(a \leq X \leq b) = \int_{{a}}^{{b}} {f(x)} \: d{x} {}
+\end{equation}
+com
+\[
+-\infty < a < b < +\infty
+\]
+
+Isso nos permite definir a esperança de uma variável aleatória contínua como:
+
+\begin{equation}
+    E(X) = \int_{{-\infty}}^{{+\infty}} {x \cdot f(x)} \: d{x} {}
+\end{equation}
+
+\paragraph{Função de distribuição acumulada}
+A função de distribuição acumulada (FDA) ou função de distribuição cumulativa
+(CDF) --- \emph{cumulative distribuction function} --- é uma função que
+descreve a probabilidade de uma variável aleatória ser menor ou igual a um
+certo valor. Em outras palavras, para uma variável aleatória $X$, a função de
+distribuição acumulada $F(x)$ representa a probabilidade de $X$ assumir um
+valor menor ou igual a $x$, isto é:
+\[
+F(x)=P(X \leq x)
+\]
+A FDA é útil porque oferece uma visão completa de como as probabilidades se
+acumulam ao longo dos valores possíveis da variável aleatória.
+
+\subsection{Distribuições para variáveis aletórias discretas}%
+
+\subsubsection{Distribuição uniforme discreta}
+Nesse tipo de distribuição, todos os possíveis valores da variável aleatória
+têm a mesma probabilidade de ocorrência. A função de probabilidade é dada por:
+\begin{equation}
+    P(X=x_i) = p(x_i) = \frac{1}{n}
+\end{equation}
+com
+\[
+i = 1, 2, 3, \ldots, n
+\]
+A \Cref{fig:dist-uniforme-discreta} representa graficamente tal distribuição.
+Observe que cada valor $x_i$ da variável $X$ tem a mesma probabilidade
+$\nicefrac{1}{n}$ de ocorrência.
+
+A esperança $E(X)$ pode ser determinada por:
+ \begin{equation}
+    E(X) = \frac{1}{n} \cdot \sum_{i=1}^{n} x_i
+    \label{eq:esperanca-dist-var-alea-discreta}
+\end{equation}
+
+A variância $Var(X)$ é dada por:
+\begin{equation}
+    Var(X) = \frac{1}{n} \cdot \left[
+        \sum_{i=1}^{n} {x_i}^2 - \frac{\left(\sum_{i=1}^{n} x_i\right)^2}{n}
+    \right]
+    \label{eq:variancia-dist-var-alea-discreta}
+\end{equation}
+
+A função de distribuição acumulada é dada por:
+\begin{equation}
+    F(X) = P(x_i \leq x) = \sum_{x_i<x}^{n} \frac{1}{n} = \frac{n(x)}{n}
+\end{equation}
+em que $n(x)$ é o número correspondente a $x_i \leq x$ --- ver representação na
+\Cref{fig:dist-uniforme-discreta-acumulada}.
+
+\begin{eg}
+No lançamento de um dado não viciado, a variável aleatória $X$ representa o
+valor da face voltada para cima. Determine a distribuição de $X$, a
+esperança $E(X)$ e a variância $Var(X)$.
+\label{eg:dado-dist-aleatoria}
+\end{eg}
+
+\begin{sol}
+Sabendo que existem seis faces, todas com a mesma chance de ocorrência --- uma
+vez que o dado não é viciado --- tem-se que a probabilidade é igual a
+$\nicefrac{1}{6}$ para todas as variáveis, como indicado na
+\Cref{tab:dado-dist-aleatoria}.
+
+A esperança $E(X)$ é dada por:
+ \[
+E(X) = \frac{1+2+3+4+5+6}{6} = \frac{21}{6} = 3.5
+\]
+A variância $Var(X)$ é dada por:
+\begin{align*}
+Var(X) &= \frac{1}{6} \cdot \left[
+    (1^2 + 2^2 + \ldots + 6^2) - \frac{\left(1 + 2 + \ldots + 6\right)^2}{6}
+\right] \\
+       &= \frac{1}{6} \cdot \left(91 - \frac{441}{6}\right) \\
+       &= 2.917
+\end{align*}
+\end{sol}
+
+\begin{table}
+    \centering
+    \begin{tabular}{cc}
+        \toprule
+        $x$ & $p(x)$ \\
+        \midrule
+        $1$ & $\nicefrac{1}{6}$ \\
+        $2$ & $\nicefrac{1}{6}$ \\
+        $3$ & $\nicefrac{1}{6}$ \\
+        $4$ & $\nicefrac{1}{6}$ \\
+        $5$ & $\nicefrac{1}{6}$ \\
+        $6$ & $\nicefrac{1}{6}$ \\
+        \midrule
+        \textbf{Soma} & $\mat{1}$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{Distribuição de probabilidades para o \Cref{eg:dado-dist-aleatoria}}
+    \label{tab:dado-dist-aleatoria}
+\end{table}
+
+\begin{figure}[ht!]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \input{graphics/dist_uniforme_discreta.pdf_tex}
+        \caption{Distribuição uniforme discreta}
+        \label{fig:dist-uniforme-discreta}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \input{graphics/dist_uniforme_discreta_acumulada.pdf_tex}
+        \caption{Função de distribuição acumulada}
+        \label{fig:dist-uniforme-discreta-acumulada}
+    \end{subfigure}
+    \caption{Distribuição de probabilidades para variáveis aleatórias discretas}
+    \label{fig:dist-uniforme-discreta-grupo}
+\end{figure}
+
+\subsubsection{Distribuição de Bernoulli}
+Esse é um tipo de distribuição binária, ou seja, que admite apenas dois
+possíveis resultados --- cara ou coroa, par ou ímpar, aparelho ligado ou
+desligado, etc --- convencionalmente denominados \emph{sucesso} ou
+\emph{fracasso}.
+
+Considere a variável aleatória $X$ que assume o valor $1$ no caso de sucesso e
+$0$ no caso de fracasso. A probabilidade de sucesso é representada por $p$ e a
+probabilidade de fracasso é representada por $q = 1 - p$. A distribuição de
+Bernoulli fornece a probabilidade de sucesso ou fracasso de $X$ na realização
+de um único experimento --- ver \Cref{fig:dist-bernoulli}. Matematicamente:
+\begin{equation}
+    \begin{split}
+    P(X = x) = p(x) =
+    \begin{cases}
+        p & \texttt{, se } x = 1 \\
+        q = 1-p & \texttt{, se } x = 0
+    \end{cases}
+    \end{split}
+    \label{eq:dist-bernoulli}
+\end{equation}
+
+O valor esperado $E(X)$ é dado por:
+\begin{equation}
+    E(X) = p
+\end{equation}
+
+A variância $Var(X)$ é dada por:
+\begin{equation}
+    Var(X) = p \cdot (1-p)
+\end{equation}
+
+A função de distribuição acumulada de Bernoulli $F(x)$ é dada por:
+\begin{equation}
+    \begin{split}
+    F(x) = P(X \leq x) =
+    \begin{cases}
+        0 & \texttt{, se } x < 0 \\
+        1-p & \texttt{, se } 0 \leq x < 1 \\
+        1 & \texttt{, se } x \geq 1
+    \end{cases}
+    \end{split}
+    \label{eq:dist-bernoulli-acumulada}
+\end{equation}
+
+\begin{figure}[ht!]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \input{graphics/dist_bernoulli.pdf_tex}
+        \caption{Distribuição de Bernoulli}
+        \label{fig:dist-bernoulli}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \input{graphics/dist_bernoulli_acumulada.pdf_tex}
+        \caption{Função de distribuição acumulada}
+        \label{fig:dist-bernoulli-acumulada}
+    \end{subfigure}
+    \caption{Distribuição de Bernoulli para variáveis discretas}
+    \label{fig:dist-bernoulli-grupo}
+\end{figure}
+
+Vamos analisar a \Cref{eq:dist-bernoulli-acumulada}, a partir de sua
+representação gráfica dada pela \Cref{fig:dist-bernoulli-acumulada}:
+\begin{itemize}
+    \item Para $x<0$, a probabilidade é sempre $0$, pois a variável $x$ só
+    assume valores a partir de $0$.
+    \item Para $x$ entre $0$ e $1$, com $x$ podendo ser $0$ mas não chegando a
+    se igualar a $1$, a probabilidade é igual à de $x=0$, ou seja, $1-p$.
+    \item Para $x$ maior do que ou igual a $1$, a probabilidade é a soma das
+    probabilidades $p(x=0)$ e $p(x=1)$ --- ou seja, $(1-p)+p=1$, uma vez que o
+    experimento não assume valores acima de $1$.
+\end{itemize}
+
+\begin{eg}
+Duas equipes de futebol, $A$ e $B$, se enfrentam na final da Copa
+Libertadores da América. A probabilidade de $A$ se sagrar campeã é igual a
+$0.60$. A variável $X$ representa o time vencedor dessa partida. Determine
+a distribuição de $X$, seu valor esperado $E(X)$ e a variância $Var(X)$.
+\end{eg}
+
+\begin{sol}
+Analisando a partir da perspectiva de $A$, temos que os valores possíveis a
+serem assumidos por $X$ são dados por:
+\begin{equation*}
+    \begin{split}
+    X =
+    \begin{cases}
+        1 & \texttt{, se A vencer} \\
+        0 & \texttt{, se B vencer}
+    \end{cases}
+    \end{split}
+\end{equation*}
+
+A função de probabilidade $p(x)$, portanto, é dada por:
+\begin{equation*}
+    \begin{split}
+    p(x) =
+    \begin{cases}
+        0.60 & \texttt{, se A vencer} \\
+        0.40 & \texttt{, se B vencer}
+    \end{cases}
+    \end{split}
+\end{equation*}
+
+O valor esperado, quando analisamos sob a perspectiva da equipe $A$, é
+justamente sua vitória (sucesso). Ou seja:
+ \[
+E(X) = 0.60
+\]
+
+Logo, a variância é dada por:
+\[
+Var(X) = 0.60 \cdot 0.40 = 0.24
+\]
+\end{sol}
+
+\subsubsection{Distribuição binomial}
+Um experimento binomial consiste em $n$ repetições independentes de um
+experimento binário (experimento de Bernoulli) com probabilidade constante $p$
+de sucesso em todas as repetições. Como exemplo prático temos o lançamento
+sucessivo de uma mesma moeda, $n$ vezes, todas as quais possuem a mesma
+probabilidade de ocorrência de um dado evento --- sair cara, por exemplo.
+A variável aleatória discreta $X$ corresponde ao número $k$ de sucessos nas
+$n$ repetições do experimento. A função $f(k)$ de distribuição de probabilidade
+é dada por:
+\begin{equation}
+     f(k) = p(X = k) = \binom{n}{k} \cdot p^{k} \cdot (1-p)^{n-k}
+     \label{eq:dist-binomial}
+\end{equation}
+onde
+\[
+    \binom{n}{k} = \frac{n!}{k!(n-k)!}
+\]
+
+\begin{eg}
+No lançamento de uma moeda, a probabilidade de sair ``cara'' é igual a
+$p=0.50$. Determine a probabilidade de, em três lançamentos, obtermos
+``cara'' duas vezes.
+\end{eg}
+
+\begin{sol}
+O total de combinações possíveis é dado por $2^3=8$.  Podemos representar
+``cara'' e ``coroa'' por $C$ e $O$ (c\textbf{O}roa). Já que estamos
+considerando como sucesso a obtenção de ``cara'', a respectiva representação
+também pode ser dada por $1$ e $0$. A \Cref{tab:lancamentos-moeda}
+sistematiza os 8 resultados possíveis desse experimento aleatório. Nota-se que
+em três deles podemos obter ``cara'' duas vezes, o que implica numa
+probabilidade $p=\nicefrac{3}{8}$.
+
+\begin{table}[htpb]
+    \centering
+    \begin{tabular}{cccccccc}
+        \toprule
+        Lançamento & \multicolumn{3}{c}{Resultado} & \multicolumn{3}{c}{Resultado} & Sucessos \\
+        \cmidrule(lr){2-4}
+        \cmidrule(lr){5-7}
+        1 & C & C & C & 1 & 1 & 1 & 3 \\
+        2 & C & C & O & 1 & 1 & 0 & 2 \\
+        3 & C & O & C & 1 & 0 & 1 & 2 \\
+        4 & O & C & C & 0 & 1 & 1 & 2 \\
+        5 & C & O & O & 1 & 0 & 0 & 1 \\
+        6 & O & C & O & 0 & 1 & 0 & 1 \\
+        7 & O & O & C & 0 & 0 & 1 & 1 \\
+        8 & O & O & O & 0 & 0 & 0 & 0 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Resultados em três lançamentos de uma mesma moeda}
+    \label{tab:lancamentos-moeda}
+\end{table}
+
+Vamos obter essa mesma probabilidade a partir da \Cref{eq:dist-binomial}:
+
+\[
+p(X=2) = \frac{3!}{2! \cdot 1!} \cdot (0.5)^2 \cdot (0.5)^1 =
+3 \cdot \frac{1}{4} \cdot \frac{1}{2} = \frac{3}{8}
+\]
+\end{sol}
+
+Por conta da natureza binomial do experimento, podemos demonstrar que, no
+lançamento de uma moeda, a distribuição é simétrica em torno da média. Basta
+reparar em dois pontos importantes.
+
+O termo
+\[
+    \binom{n}{k} = \frac{n!}{k!(n-k)!}
+\]
+corresponde a uma \textbf{combinação simples} de $k$ elementos dentre todos os
+$n$ elementos de um determinado subconjunto, também denotada $C_{n,k}$. É
+simples mostrar que a seguinte igualdade é verdadeira:
+ \[
+    \binom{n}{k} = \binom{n}{n-k}
+\]
+Basta observar que:
+\[
+    \binom{n}{n-k} = \frac{n!}{(n-k)![n-(n-k)]!} = \frac{n!}{(n-k)!k!}
+\]
+Nota-se que os denominadores resultam no mesmo produto, uma vez que seus
+fatores apenas se apresentam em ordens distintas. Desse modo, supondo 10
+lançamentos consecutivos de uma mesma moeda, a quantidade distinta de
+combinações que resulta em 3 sucessos é idêntica à quantidade de combinações
+distintas que resulta em 7 sucessos.
+
+Aliado a esse ponto, tem-se também o fato de, em todos os eventos do
+experimento, a probabilidade de sucesso ser igual à probabilidade de fracasso.
+Observe a \Cref{tab:dez-lancamentos}. Como sinalizado no parágrafo anterior,
+existem 120 combinações que resultam em 3 sucessos, valor igual ao de
+combinações para resultar em 7 sucessos. No caso de uma moeda convencional, as
+\textbf{probabilidades} desses eventos ocorrerem também é a mesma, como
+denotado na terceira coluna. Observa-se que a maior quantidade de combinações é
+aquela que resulta em 5 sucessos; portanto, esse é também o evento com a maior
+probabilidade. Por essa razão, como indicado na \Cref{fig:dez-lancamentos}, a
+distribuição de frequências é simétrica em relação à média e corresponde a uma
+curva normal.
+
+\begin{table}[htpb]
+    \centering
+    \begin{tabular}{ccccc}
+        \toprule
+            &           & $p=0.5$ & $p=0.3$ & $p=0.7$ \\
+            \cmidrule(lr){3-3} \cmidrule(lr){4-4} \cmidrule(lr){5-5}
+        $k$ & $C_{10,k}$ & $f(k)$  & $f(k)$  & $f(k)$ \\
+        \midrule
+        0   & 1         & 0.0010  & 0.0282  & 0.0000 \\
+        1   & 10        & 0.0098  & 0.1211  & 0.0001 \\
+        2   & 45        & 0.0439  & 0.2335  & 0.0014 \\
+        3   & 120       & 0.1172  & 0.2668  & 0.0090 \\
+        4   & 210       & 0.2051  & 0.2001  & 0.0368 \\
+        5   & 252       & 0.2461  & 0.1029  & 0.1029 \\
+        6   & 210       & 0.2051  & 0.0368  & 0.2001 \\
+        7   & 120       & 0.1172  & 0.0090  & 0.2668 \\
+        8   & 45        & 0.0439  & 0.0014  & 0.2335 \\
+        9   & 10        & 0.0098  & 0.0001  & 0.1211 \\
+        10  & 1         & 0.0010  & 0.0000  & 0.0282 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Distribuições binomiais para $n=10$ em três cenários de
+    probabilidades $p$}
+    \label{tab:dez-lancamentos}
+\end{table}
+
+\begin{figure}[htpb]
+    \centering
+    \resizebox{\textwidth}{!}{\input{graphics/exemplo_dez_lancamentos.pdf_tex}}
+    \caption{Distribuições binomiais para $n=10$ em três cenários de
+    probabilidades $p$}
+    \label{fig:dez-lancamentos}
+\end{figure}
+
+Contudo, suponhamos que a moeda seja viciada, pendendo mais para um resultado
+do que para outro. Nesse caso, as probalidades de sucesso seriam diferentes de
+50\%.  Na \Cref{tab:dez-lancamentos} e na \Cref{fig:dez-lancamentos} simulamos
+cenários considerando probabilidades $p=0.30$ e $p=0.70$. Novamente, nota-se
+que, apesar de haver os mesmos números de combinações que correspondam a um
+determinado resultado, as funções probabilidades $f(k)$ são diferentes.
+Por exemplo, há 120 combinações que resultam em 3 sucessos. Com uma
+probabilidade $p=0.30$ a função de distribuição de probalidade é igual a
+$0.2668$. Considerando uma probabilidade $p=0.70$, essa função passa a ter
+valor $0.090$.
+
+Nota-se, na \Cref{fig:dez-lancamentos}, que a curva de distribuição para
+$p=0.30$ é assimétrica à direita, enquanto a curva para $p=0.70$ é assimétrica
+com uma cauda alongada à esquerda. Podemos interpretar isso da seguinte
+maneira: com uma probabilidade de sucesso independente igual a 30\%, é maior a
+chance de obter mais fracassos --- menos sucessos.
+
+\begin{eg}
+Em uma indústria, a probabilidade $p$ de encontrar peças defeituosas em
+cada lote produzido é 6.50\%. São produzidos 12 lotes a cada mês.
+Determine a probabilidade de encontrar peças defeituosas em
+\begin{enumerate}[label=\alph*)]
+    \item 2 lotes no mês.
+    \item 4 lotes no mês.
+    \item no máximo 2 lotes no mês.
+\end{enumerate}
+\label{eg:pecas-defeituosas}
+\end{eg}
+
+\begin{sol}
+Para determinar a probabilidade de encontrar peças defeituosas em 2 lotes no
+mês, considerando $n=12$ e $p=0.065$, podemos utilizar a
+\Cref{eq:dist-binomial}, com $k=2$:
+\[
+p(X=k) = f(2) = \frac{12!}{2! \cdot 10!} \cdot (0.065)^2 \cdot (0.935)^{10} =
+0.142 = 14.2 \%
+\]
+
+A probabilidade de encontrar peças defeituosas em 4 lotes é dada por:
+\[
+p(X=k) = f(4) = \frac{12!}{4! \cdot 8!} \cdot (0.065)^4 \cdot (0.935)^{8} =
+0.00516 = 0.52 \%
+\]
+
+Por fim, a probabilidade de encontrar peças defeituosas em \emph{no máximo} 2
+lotes é dada pelas somas das probabilidades de encontrar peças defeituosas em
+0, 1 e 2 lotes. Ou seja:
+\begin{align*}
+p(x \leq 2) &= f(0) + f(1) + f(2) = \\
+&= \frac{12!}{0! \cdot 12!} \cdot (0.065)^{0} \cdot (0.935)^{12} + \\
+&+ \frac{12!}{1! \cdot 11!} \cdot (0.065)^{1} \cdot (0.935)^{11} + \\
+&+ \frac{12!}{2! \cdot 10!} \cdot (0.065)^{2} \cdot (0.935)^{10} = \\
+&= 0.44641 + 0.37240 + 0.14222 = \\
+&= 0.96103 = 96.10 \%
+\end{align*}
+\end{sol}
+
+\subsubsection{Distribuição geométrica}
+
+Corresponde a uma distribuição de Bernoulli, que considera experimentos
+aleatórios sucessivos, todos com probabilidade $p$ de ocorrência. Neste caso,
+porém, o experimento é realizado até que \textbf{o primeiro sucesso} seja
+atingido.
+
+Tal distribuição apresenta duas parametrizações distintas:
+
+\begin{itemize}
+    \item Consirar sucessivos ensaios até obter o primeiro sucesso.
+        \begin{itemize}
+            \item Nesse cenário, não incluímos o zero como um possível
+            resultado.
+            \item O domínio é dado pelo conjunto $\N* = [1, 2, 3, \ldots]$.
+        \end{itemize}
+    \item Contar o número de fracassos antes do primeiro sucesso.
+        \begin{itemize}
+            \item Nesse cenário, considera-se o zero como um possível
+            resultado.
+            \item O domínio é dado pelo conjunto $\N = [0, 1, 2, 3, \ldots]$.
+        \end{itemize}
+\end{itemize}
+
+Seja $X$ a variável aleatória que representa o número de tentativas até o
+primeiro sucesso, com distribuição geométrica de parâmetro $p$ (probabilidade
+independente de sucesso em cada tentativa). Sua função de probabilidade
+$f(x)$ é dada por:
+\begin{equation}
+    f(x) = P(X=x) = p \cdot (1-p)^{x-1}
+    \label{eq:dist-geometrica-sucessos}
+\end{equation}
+com $x \in \N*$.
+
+Para o segundo caso, consideremos $Y$ a variável aleatória que representa o
+número de fracassos antes do primeiro sucesso, com distribuição geométrica de
+parâmetro $p$ (probabilidade independente de sucesso em cada tentativa). Sua
+função de probabilidade $f(y)$ é dada por:
+\begin{equation}
+    f(y) = P(Y=y) = p \cdot (1-p)^{y}
+    \label{eq:dist-geometrica-fracassos}
+\end{equation}
+com $y \in \N$.
+
+O valor esperando (esperança) é dado por:
+\begin{align}
+    E(X) &= \frac{1}{p} \\
+    E(Y) &= \frac{1-p}{p}
+\end{align}
+
+A variância é dada por:
+\begin{align}
+    Var(X) &= \frac{1-p}{p^2} \\
+    Var(Y) &= \frac{1-p}{p^2}
+\end{align}
+
+\begin{eg}
+Suponha um jogador de basquete \emph{extremamente} regular: para todo e
+qualquer arremesso livre, ele tem \textbf{sempre} a mesma probabilidade
+de acerto: 40\%. Determine a probabilidade do primeiro acerto desse
+jogador ocorrer no quinto arremesso livre.
+\label{eg:arremesso-livre}
+\end{eg}
+
+\begin{sol}
+Para o \Cref{eg:arremesso-livre}, temos que $X$ denota o experimento aleatório
+``arremesso livre'', com distribuição geométrica de parâmetro $p=0.40$.
+Utilizando a \Cref{eq:dist-geometrica-sucessos}, vamos determinar a
+probabilidade do primeiro acerto ocorrer no quinto ($x=5$) arremesso livre:
+\begin{align*}
+P(X=5) &= 0.40 \cdot (1-0.40)^{5-1} \\
+       &= 0.40 \cdot (0.60)^{4} \\
+       &= 0.0518 \\
+       &= 5.18 \%
+\end{align*}
+
+Isso é equivalente a determinar a probabilidade de ocorrerem $y=4$ fracassos,
+utilizando a \Cref{eq:dist-geometrica-fracassos}:
+\[
+P(Y=4) = (0.40) \cdot (1-0.40)^{4} = 5.18\%
+\]
+
+A \Cref{fig:exemplo_arremesso_basquete} e a
+\Cref{tab:exemplo_arremesso_basquete} ilustram a distribuição de probabilidades
+para o \Cref{eg:arremesso-livre}, considerando até $x=10$ arremessos. É fácil
+notar que a sequência de probabilidades denota uma \emph{progressão
+geométrica}.
+\end{sol}
+
+\begin{figure}[htpb]
+    \centering
+    \resizebox{\textwidth}{!}{\input{graphics/exemplo_arremesso_basquete.pdf_tex}}
+    \caption{Distribuição geométrica com $p=0.40$, até $x=10$}
+    \label{fig:exemplo_arremesso_basquete}
+\end{figure}
+
+\begin{table}[htpb]
+    \centering
+    \begin{tabular}{cc}
+    \toprule
+    x & f(x) \\
+    \midrule
+    1 & 40,00\% \\
+    2 & 24,00\% \\
+    3 & 14,40\% \\
+    4 & 8,64\% \\
+    5 & 5,18\% \\
+    6 & 3,11\% \\
+    7 & 1,87\% \\
+    8 & 1,12\% \\
+    9 & 0,67\% \\
+    10 & 0,40\% \\
+    \bottomrule
+    \end{tabular}
+    \caption{Distribuição geométrica com $p=0.40$, até $x=10$}
+    \label{tab:exemplo_arremesso_basquete}
+\end{table}
+
+\subsubsection{Distribuição binomial negativa}
+
+Também conhecida como \textbf{distribuição de Pascal}, ela se assemelha
+bastante, em conceito, à distribuição binomial. A diferença, nesse caso, é que
+se realizam $x$ ensaios de Bernoulli independentes --- com probabilidade $p$ de
+sucesso constante em todas as tentativas --- até atingir um número $k$ de
+sucessos.
+
+A função $f(x)$ de probabilidade em uma distribuição binomial negativa é dada
+por
+\begin{equation}
+    \begin{split}
+    f(x) = P(X=x) = \binom{x-1}{k-1} \cdot p^{k} \cdot (1-p)^{x-k} \implies \\
+    f(x) = \frac{(x-1)!}{(k-1)! \cdot (x-k)!} \cdot p^{k} \cdot (1-p)^{x-k}
+    \end{split}
+    \label{eq:dist-binom-negativa}
+\end{equation}
+com $\{ x \in N | x \geq k \}$.
+
+O valor esperado $E(X)$ é dado por
+\begin{equation}
+    E(X) = \frac{k}{p}
+\end{equation}
+
+A variância $Var(X)$ é dada por
+\begin{equation}
+    Var(X) = \frac{k \cdot (1-p)}{p^2}
+\end{equation}
+
+Como mencionado no início deste tópico, a distribuição binomial negativa
+relaciona-se com a distribuição binomial. Nesta última, fixa-se o tamanho $n$
+da amostra --- ou seja, a quantidade de ensaios realizados --- e observa-se o
+número $k$ de sucessos (variável aleatória). Na binomial negativa, fixa-se o
+número $k$ de sucessos e observa-se a quantidade $x$ de ensaios realizados
+(variável aleatória) para obter tal quantidade de sucessos.
+
+Podemos também notar que uma distribuição binomial negativa com $k=1$ é
+equivalente a uma distribuição geométrica.
+
+\begin{eg}
+Suponha que um jogador de futebol converte 3 a cada 5 pênaltis. Sendo $X$ o
+número de tentativas até décimo segundo gol, determine a probabilidade de
+que esse jogador precise cobrar 20 pênaltis para atingir essa marca.
+\end{eg}
+
+\begin{sol}
+Dado que o jogador converte 3 a cada 5 pênaltis, tem-se que a probabilidade
+dele marcar um gol é $p=0.60$. Vamos usar a \Cref{eq:dist-binom-negativa} e
+determinar a função probabilidade desse jogador precisar de $x=20$ pênaltis
+para obter $k=12$ sucessos (gols):
+\begin{align*}
+f(20) &= \frac{(20-1)!}{(12-1)! \cdot (20-12)!} \cdot 0.60^{12} \cdot (1-0.60)^{20-12} \\
+      &= \frac{19!}{11! \cdot 8!} \cdot 0.60^{12} \cdot 0.40^{8} \\
+      &= 0.1078 \\
+      &= 10.78 \%
+\end{align*}
+
+A curva de distribuição de probabilidades para esse caso está representada na
+\Cref{fig:exemplo_penalti}. Destaca-se que a maior probabilidade ocorre para
+converter o 12º pênalti na tentativa $x=19$.
+\end{sol}
+
+\begin{figure}[htpb]
+    \centering
+    \input{graphics/exemplo_penalti.pdf_tex}
+    \caption{Distribuição binomial negativa para $k=12$ e $p=0.60$,
+    considerando de $x=12$ a $x=40$ tentativas}
+    \label{fig:exemplo_penalti}
+\end{figure}
+
+\begin{eg}
+Em um parque de diversões, existe uma máquina em que o jogador deve capturar
+algum item utilizando os comandos de um braço mecânico. Considere que a
+probabilidade $p$ de que o jogador consiga capturar algum item em cada jogada é
+11\%. Identifique as seguintes probabilidades:
+
+\begin{enumerate}[label=\alph*)]
+    \item De que o jogador necessite de 10 jogadas para capturar 3 itens.
+    \item De que o jogador necessite de 20 jogadas para capturar 3 itens.
+    \item De que o jogador necessite de 5 jogadas para capturar 1 item.
+\end{enumerate}
+\end{eg}
+
+\begin{sol}
+Vamos usar a \Cref{eq:dist-binom-negativa} e determinar a probabilidade do
+jogador necessitar de $x=10$ jogadas para capturar 3 itens ($k=3$ sucessos),
+dada uma probabilidade constante $p=0.11$ a cada tentativa:
+\begin{align*}
+f(10) &= \frac{(10-1)!}{(3-1)! \cdot (10-3)!} \cdot 0.11^{3} \cdot (1-0.11)^{10-3} \\
+      &= \frac{9!}{2! \cdot 7!} \cdot 0.11^{3} \cdot 0.89^{7} \\
+      &= 0.0212 \\
+      &= 2.12 \%
+\end{align*}
+
+Agora, determinemos a probabilidade do jogador necessitar de $x=20$ jogadas
+para obter os mesmos $k=3$ sucessos:
+\begin{align*}
+f(20) &= \frac{(20-1)!}{(3-1)! \cdot (20-3)!} \cdot 0.11^{3} \cdot (1-0.11)^{20-3} \\
+      &= \frac{19!}{2! \cdot 17!} \cdot 0.11^{3} \cdot 0.89^{17} \\
+      &= 0.0314 \\
+      &= 3.14 \%
+\end{align*}
+
+Por fim, determinemos a probabilidade do jogador necessitar de $x=5$ jogadas
+para obter $k=1$ sucesso:
+\begin{align*}
+f(5) &= \frac{(5-1)!}{(1-1)! \cdot (5-1)!} \cdot 0.11^{1} \cdot (1-0.11)^{5-1} \\
+      &= \frac{4!}{0! \cdot 4!} \cdot 0.11^{1} \cdot 0.89^{4} \\
+      &= 0.0690 \\
+      &= 6.90 \%
+\end{align*}
+\end{sol}
+
+\subsubsection{Distribuição hipergeométrica}
+
+Essa distribuição também se relaciona com o experimento de Bernoulli.
+Diferentemente da distribuição binomial, com probabilidade constante de
+sucesso, na distribuição hipergeométrica a amostragem é \emph{sem reposição}.
+Desse modo, conforme os elementos são retirados da população para formar a
+amostra, o tamanho da população diminiu, fazendo variar a probabilidade de
+sucesso. Podemos citar, como exemplos, o sorteio de uma loteria --- a cada
+bolinha sorteada a quantidade de bolinhas disponíveis na caixa diminui --- e a
+formação de uma ``mão'' no pôquer --- diminui-se a quantidade de cartas
+disponíveis na pilha conforme retiram-se cartas, uma a uma, para destiná-las ao
+jogador.
+
+Seja uma população de $N$ elementos, da qual se retiram, sem reposição, $n$
+elementos para a formação da amostra. A distribuição hipergeométrica descreve a
+probabilidade de obter $k$ sucessos na amostra, sabendo que a população possui
+um total $K$ de sucessos.
+
+Sendo $X$ a variável que representa o número de sucessos obtidos a partir dos
+$n$ elementos retirados da amostra, a função de probabilidade de uma
+distribuição hipergeométrica é dada por
+\begin{equation}
+    f(k) = P(X=k) = \frac{\binom{K}{k} \cdot \binom{N-K}{n-k}}{\binom{N}{n}}
+    \label{eq:dist-hipergeometrica}
+\end{equation}
+com $0 \leq k \leq \texttt{min}(K,n)$.
+
+O valor esperado $E(X)$ é dado por:
+\begin{equation}
+    E(X) = \frac{n \cdot K}{N}
+    \label{eq:esperanca-dist-hipergeo}
+\end{equation}
+
+A variância $Var(X)$ é dada por:
+\begin{equation}
+    Var(X) = \frac{n \cdot K}{N} \cdot \frac{(N-K) \cdot (N-n)}{N \cdot (N-1)}
+    \label{eq:variancia-dist-hipergeo}
+\end{equation}
+
+\begin{eg}
+Imagine que você tem um baralho de 52 cartas, das quais 13 são ases (sucessos)
+e 39 são outras cartas (fracassos). Você quer saber a probabilidade de tirar
+exatamente 2 ases em uma mão de 5 cartas, sem reposição.
+\label{eg:baralho-ases}
+\end{eg}
+
+\begin{sol}
+Temos, para o \Cref{eg:baralho-ases}:
+\begin{itemize}
+    \item Tamanho da população: $N=52$;
+    \item Quantidade de sucessos na população: $K=13$;
+    \item Tamanho da amostra: $n=5$;
+    \item Quantidade de sucessos na amostra: $k=2$.
+\end{itemize}
+
+Utilizando a \Cref{eq:dist-hipergeometrica}, tem-se que $f(k=2)$ é dada por:
+\begin{align*}
+    f(k) &= \frac{\binom{K}{k} \cdot \binom{N-K}{n-k}}{\binom{N}{n}} \implies \\
+    f(2) &= \cfrac{\binom{13}{2} \cdot \binom{52-13}{5-2}}{\binom{52}{5}}
+          = \cfrac{\binom{13}{2} \cdot \binom{39}{3}}{\binom{52}{5}} = \\
+         &= \cfrac{\cfrac{13!}{2! \cdot 11!} \cdot \cfrac{39!}{3! \cdot 36!}}{\cfrac{52!}{5! \cdot 47!}} = \\
+         &= \frac{78 \cdot 9139}{2598960} = \\
+         &= 0.2743 \\
+         &= 27.43 \%
+\end{align*}
+\end{sol}
+
+\begin{eg}
+Uma urna contém 15 bolas, das quais 5 são vermelhas. São escolhidas 7 bolas
+ao acaso, sem reposição. Determine:
+\begin{enumerate}[label=\alph*)]
+    \item A probabilidade de que exatamente duas bolas vermelhas sejam sorteadas.
+    \item A probabilidade de que pelo menos duas bolas vermelhas sejam sorteadas.
+    \item O número esperado de bolas vermelhas sorteadas.
+    \item A variância do número de bolas vermelhas sorteadas.
+\end{enumerate}
+\label{eg:urna-vermelhas}
+\end{eg}
+
+\begin{sol}
+Temos, para o \Cref{eg:urna-vermelhas}:
+\begin{itemize}
+    \item Tamanho da população: $N=15$;
+    \item Quantidade de sucessos na população: $K=5$;
+    \item Tamanho da amostra: $n=7$.
+\end{itemize}
+
+No caso do item (a), tem-se que a quantidade de sucessos na amostra é $k=2$.
+Sendo assim, utilizemos a \Cref{eq:dist-hipergeometrica} para determinar a
+probabilidade de ocorrência deste evento:
+
+\begin{align*}
+    f(k) &= \frac{\binom{K}{k} \cdot \binom{N-K}{n-k}}{\binom{N}{n}} \implies \\
+    f(2) &= \cfrac{\binom{5}{2} \cdot \binom{15-5}{7-2}}{\binom{15}{7}}
+          = \cfrac{\binom{5}{2} \cdot \binom{10}{5}}{\binom{15}{7}} = \\
+         &= \cfrac{
+                \cfrac{5!}{2! \cdot 3!}
+                \cdot
+                \cfrac{10!}{5! \cdot 5!}
+         }{
+                \cfrac{15!}{7! \cdot 8!}
+         } = \\
+         &= \frac{10 \cdot 252}{6435} = \\
+         &= 0.3916 = \\
+         &= 39.16 \%
+\end{align*}
+
+No caso do item (b), a probabilidade de que \emph{pelo menos} duas bolas
+vermelhas sejam sorteadas implica em aceitar a probabilidade de serem sorteadas
+0, 1 ou 2 bolas. Ou seja, devemos determinar
+\[
+f(0)+f(1)+f(2)
+\]
+
+Pode-se mostrar que $f(0) = 0.0186$ e $f(1) = 0.1632$. Deste modo, tem-se que
+\[
+f(0)+f(1)+f(2) = 0.0186 + 0.1632 + 0.3916 = 0.5734 = 57.34\%
+\]
+
+O número esperado de bolas vermelhas pode ser determinado pela
+\Cref{eq:esperanca-dist-hipergeo}:
+\[
+E(X) = \frac{n \cdot K}{N} = \frac{7 \cdot 5}{15} = 2.33
+\]
+
+A variância é dada pela \Cref{eq:variancia-dist-hipergeo}:
+\begin{align*}
+Var(X) &= \frac{n \cdot K}{N} \cdot \frac{(N-K) \cdot (N-n)}{N \cdot (N-1)} = \\
+       &= \frac{7 \cdot 5}{15} \cdot \frac{(15-5) \cdot (15-7)}{15 \cdot (15-1)} = \\
+       &= 0.889
+\end{align*}
+\end{sol}
+
+\subsubsection{Distribuição Poisson}
+
+A distribuição de Poisson é uma distribuição de probabilidade que descreve o
+número de ocorrências de um evento em um intervalo fixo de tempo ou espaço,
+desde que esses eventos ocorram com uma \emph{taxa média constante} e sejam
+\emph{independentes} entre si. Ela é útil para modelar a ocorrência de eventos
+que são relativamente raros ($p \rightarrow 0$) ou esparsos em relação ao tempo
+ou espaço.
+
+Diferentemente do modelo binomial, que fornece a probabilidade do número de
+sucessos em um intervalo \emph{discreto} ($n$ repetições de um experimento), o
+modelo Poisson fornece a probabilidade do número de sucessos em determinado
+intervalor \textbf{contínuo} --- tempo, área, dentre outras possibilidades de
+exposição \parencite[p.~324]{favero}.
+
+A distribuição de Poisson é adequada para situações em que queremos contar
+eventos que acontecem de forma esporádica em um intervalo de tempo, área ou
+volume, como:
+
+\begin{itemize}
+\item Chamadas de um Call Center: Modelar o número de chamadas recebidas em um call center por hora.
+\item Chegada de Clientes em um Banco: Contar quantos clientes chegam a uma agência bancária em intervalos fixos de tempo, como a cada 10 minutos.
+\item Defeitos em Produtos: Modelar o número de defeitos encontrados por metro quadrado de tecido em uma linha de produção.
+\item Acidentes de Trânsito: Estimar o número de acidentes em um cruzamento específico durante um dia.
+\item Vazamento de Radiação: Contar partículas detectadas por um sensor em um determinado tempo em um laboratório de física experimental.
+\end{itemize}
+
+Em todos esses casos, os eventos são raros ou ocorrem com baixa frequência
+dentro do intervalo analisado, e a média de ocorrência é conhecida e constante,
+tornando a distribuição de Poisson uma ferramenta útil para modelar esses
+cenários.
+
+Seja $X$ uma variável aleatória discreta que representa a quantidade $k$ de
+sucessos em determinada unidade contínua. A função de probabilidade dessa
+variável, quando apresentada uma distribuição Poisson, com parâmetro
+$\lambda \geq 0$, é dada por
+\begin{equation}
+    f(k) = P(X=k) = \frac{e^{-\lambda} \cdot \lambda^{k}}{k!}
+    \label{eq:dist-poisson}
+\end{equation}
+em que:
+\begin{itemize}
+    \item $e \approx 2.718$ representa a base do logaritmo neperiano (ou natural);
+    \item $\lambda$ representa a taxa média estimada de ocorrência do evento de
+    interesse para dada exposição;
+\end{itemize}
+
+A distribuição Poisson apresenta as seguintes hipóteses
+\parencite[p.~324]{favero}:
+\begin{enumerate}[label=\Roman*)]
+    \item Eventos definidos em intervalos não sobrepostos são independentes.
+    \item Em intervalos de mesmo comprimento, as probabilidades de ocorrência
+    de um mesmo número de sucesso são iguais --- p. ex.: se dizemos que há
+    probabilidade de atender 8 pacientes por hora em uma clínica, o número de
+    sucessos é igual na hora 1, na hora 5, em qualquer hora de funcionamento.
+    \item Em intervalos muito pequenos, a probabilidade de ocorrência de mais de um sucesso é desprezível.
+    \item Em intervalos muito pequenos, a probabilidade de um sucesso é proporcional ao comprimento do intervalo.
+\end{enumerate}
+
+A média e a variância, na distribuição de Poisson, são iguais e dadas por:
+\begin{equation}
+    E(X) = Var(X) = \lambda
+\end{equation}
+
+\begin{eg}
+Suponha que o número de clientes que chegam a um banco siga uma distribuição
+Poisson. Verifica-se que, em média, chegam 12 clientes por minuto. Determine:
+\begin{enumerate}[label=\alph*)]
+    \item a probabilidade de chegada de 10 clientes no próximo minuto;
+    \item a probabilidade de chegada de 40 clientes nos próximos 5 minutos;
+    \item a média e a variância de $X$.
+\end{enumerate}
+\end{eg}
+
+\begin{sol}
+Assumindo que o caso implica em uma distribuição Poisson, com uma taxa média
+$\lambda = 12$ de clientes por minuto, vamos usar a \Cref{eq:dist-poisson} para
+determinar a probabilidade de chegarem $k=10$ clientes no próximo minuto:
+\begin{align*}
+    f(10) &= \frac{e^{-\lambda} \cdot \lambda^{k}}{k!}
+           = \frac{e^{-12} \cdot 12^{10}}{10!}
+           = 0.1048 = 10.48 \%
+\end{align*}
+
+A probabilidade de chegada de 40 clientes nos próximos 5 minutos é equivalente
+à probabilidade de chegarem $k=8$ clientes a cada minuto --- vide o segundo
+item das hipóteses previamente apresentadas. Logo, temos que:
+\begin{align*}
+    f(8) &= \frac{e^{-\lambda} \cdot \lambda^{k}}{k!}
+           = \frac{e^{-12} \cdot 12^{8}}{8!}
+           = 0.0655 = 6.55 \%
+\end{align*}
+
+A média (valor esperado da distribuição) e a variância são ambos dados por
+$\lambda=12$.
+\end{sol}
+
+\begin{eg}
+Um médico notou que a taxa média de ocorrência de pacientes com certa doença rara em
+seu consultório é de 2 por ano. Aceitando que esta variável tenha distribuição Poisson, estime:
+\begin{enumerate}[label=\alph*)]
+    \item A probabilidade de que o médico receba 1 paciente com a doença em um ano.
+    \item A probabilidade de que o médico receba 3 pacientes com a doença em um ano.
+    \item A probabilidade de que o médico não receba pacientes com a doença em um ano.
+    \item A probabilidade de que o médico receba 6 pacientes com a doença em um ano.
+\end{enumerate}
+\end{eg}
+
+\begin{sol}
+Aceitando que a variável ``pacientes com doença rara no consultório'' tenha
+distribuição Poisson, com taxa média $\lambda=2$ pacientes por ano, utilizemos
+a \Cref{eq:dist-poisson} para determinar a probabilidade de obter $k=1$
+sucesso nessa distribuição --- ou seja, a probabilidade desse médico receber 1
+paciente com tal doença em um ano:
+\begin{align*}
+    f(1) &= \frac{e^{-\lambda} \cdot \lambda^{k}}{k!}
+          = \frac{e^{-2} \cdot 2^{1}}{1!}
+          = 0.2707 = 27.07 \%
+\end{align*}
+
+A probabilidade desse médico receber 3 pacientes com tal doença em um ano
+($k=3$ sucessos) é dada por:
+\begin{align*}
+    f(3) &= \frac{e^{-\lambda} \cdot \lambda^{k}}{k!}
+          = \frac{e^{-2} \cdot 2^{3}}{3!}
+          = 0.1804 = 18.04 \%
+\end{align*}
+
+Para determinar a probabilidade do médico não receber pacientes com a doença
+rara em um ano, basta utilizar a \Cref{eq:dist-poisson} adotando $k=0$
+sucessos:
+\begin{align*}
+    f(0) &= \frac{e^{-\lambda} \cdot \lambda^{k}}{k!}
+          = \frac{e^{-2} \cdot 2^{0}}{0!}
+          = 0.1353 = 13.53 \%
+\end{align*}
+
+Por fim, a probabilidade de ocorrência de $k=6$ sucessos --- receber 6
+pacientes com a doença em um ano --- é dada por:
+\begin{align*}
+    f(6) &= \frac{e^{-\lambda} \cdot \lambda^{k}}{k!}
+          = \frac{e^{-2} \cdot 2^{6}}{6!}
+          = 0.0120 = 1.20 \%
+\end{align*}
+
+É possível notar como as maiores probabilidades concentram-se nos valores
+$k$ próximos a $\lambda$, como indica a \Cref{tab:dist-poisson-l12}, na qua
+consideramos até $k=10$ sucessos.
+
+\begin{table}[htpb]
+    \centering
+    \begin{tabular}{cc}
+        \toprule
+        $k$ & $P(X=k)$ \\
+        \midrule
+        0   & 13,534\% \\
+        1   & 27,067\% \\
+        2   & 27,067\% \\
+        3   & 18,045\% \\
+        4   & 9,022\%  \\
+        5   & 3,609\%  \\
+        6   & 1,203\%  \\
+        7   & 0,344\%  \\
+        8   & 0,086\%  \\
+        9   & 0,019\%  \\
+        10  & 0,004\%  \\
+        \bottomrule
+    \end{tabular}
+    \caption{Distribuição de Poisson para $\lambda=12$}
+    \label{tab:dist-poisson-l12}
+\end{table}
+
+\end{sol}

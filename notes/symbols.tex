@@ -1,0 +1,31 @@
+% mathematical letters
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+
+% display argument in bold and math mode
+\newcommand\mat[1]{\mathbf{#1}}
+
+% trigonometrical functions in pt-BR
+\DeclareMathOperator{\tg}{tg}
+\DeclareMathOperator{\sen}{sen}
+
+% SI units
+\newcommand\cm{\unit{\centi\metre}}
+\newcommand\rad{\unit{\radian}}
+
+% override some "ugly" defaults
+\let\svlim\lim\def\lim{\svlim\limits}
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+\let\epsilon\varepsilon
+
+% show every fraction in displaystyle
+\newcommand\defaultfrac{\everymath{\displaystyle}}
+\defaultfrac
+% set option to revert to default (inline)
+\newcommand\inl{\everymath{}}

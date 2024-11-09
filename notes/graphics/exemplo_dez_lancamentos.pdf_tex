@@ -1,0 +1,79 @@
+%% Creator: Inkscape 1.3.2 (091e20ef0f, 2023-11-25), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'exemplo_dez_lancamentos.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{411.02362205bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.55172414)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{exemplo_dez_lancamentos.pdf}}%
+    \put(0.09689656,0.02972413){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0\end{tabular}}}}%
+    \put(0.22593104,0.02972413){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}2\end{tabular}}}}%
+    \put(0.35496552,0.02972413){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}4\end{tabular}}}}%
+    \put(0.48400001,0.02972413){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}6\end{tabular}}}}%
+    \put(0.61303449,0.02972413){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}8\end{tabular}}}}%
+    \put(0.73544828,0.02972413){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}10\end{tabular}}}}%
+    \put(0.86455173,0.02972413){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}12\end{tabular}}}}%
+    \put(0.03353179,0.06055172){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0,00\end{tabular}}}}%
+    \put(0.03353179,0.12627586){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0,05\end{tabular}}}}%
+    \put(0.03353179,0.192){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0,10\end{tabular}}}}%
+    \put(0.03353179,0.25765514){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0,15\end{tabular}}}}%
+    \put(0.03353179,0.32337929){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0,20\end{tabular}}}}%
+    \put(0.03353179,0.38910345){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0,25\end{tabular}}}}%
+    \put(0.03353179,0.45482758){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}0,30\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{exemplo_dez_lancamentos.pdf}}%
+    \put(0.91466286,0.30210343){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}p=0,5\end{tabular}}}}%
+    \put(0.91466286,0.26782755){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}p=0,3\end{tabular}}}}%
+    \put(0.91466286,0.23348272){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}p=0,7\end{tabular}}}}%
+    \put(0.89655174,0.06896551){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$k$\end{tabular}}}}%
+    \put(-0.70400001,1.06434483){\rotatebox{90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}f(k)\end{tabular}}}}}%
+    \put(0.1019705,0.50134995){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$f(k)$\end{tabular}}}}%
+  \end{picture}%
+\endgroup%
