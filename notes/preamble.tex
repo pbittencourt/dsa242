@@ -5,6 +5,11 @@
 \usepackage[T1]{fontenc}                  % For font encoding
 \usepackage[brazil]{babel}                % Language-specific settings
 
+% Page geometry and margins
+\usepackage[a4paper,
+            top=1in, bottom=1in, inner=1.5in, outer=1.5in
+]{geometry}
+
 % Quoting
 \usepackage{csquotes}                     % For context-sensitive quotes
 
@@ -41,12 +46,13 @@
 \addbibresource{references.bib}           % Bibliography file
 
 % Miscellaneous
-\usepackage{fancyhdr}           % Format headers and footers
+\usepackage{fancyhdr}                     % Format headers and footers
 \usepackage{hyperref}                     % For hyperlinks
 \usepackage{cleveref}                     % For clever references
 \usepackage{bookmark}                     % For PDF bookmarks
 \usepackage{siunitx}                      % For measure units and numbers
 \usepackage{transparent}                  % Handle transparency in pdf figures
+\usepackage{marginnote}                   % Allow margin notes
 \usepackage{tikz}
 \usepackage{tikz-cd}
 \usepackage{pgfplots}
@@ -133,22 +139,18 @@
 
 % Insert lesson info on margins
 \setlength{\marginparwidth}{2.5cm}
+\makeatletter % Permite o uso do "@"
 \def\testdateparts#1{\dateparts#1\relax}
 \def\dateparts#1 #2 #3 #4 #5\relax{
     \marginpar{\small\textsf{\mbox{#1 #2 #3 #4}}}
 }
 \def\@lesson{}%
 \newcommand{\lesson}[3]{
-    %\ifthenelse{\isempty{#3}}{%
-    %    \def\@lesson{Aula #1}%
-    %}{%
-    %    \def\@lesson{Aula #1: #3}%
-    %}%
-    %\subsection*{\@lesson}
     \def\@lesson{Aula #1}%
     \marginpar{\small\textsf{\mbox{\@lesson}}}
     \testdateparts{#2}
 }
+\makeatother % Restaura o uso padrão do "@"
 
 % Insert TODO notes on margins
 \newcommandx{\conferir}[2][1=]{\todo[linecolor=RawSienna,backgroundcolor=RawSienna!25,bordercolor=RawSienna,#1]{#2}}
@@ -159,104 +161,126 @@
 
 % <<< THEOREMS STYLES --------------------------------------------------------
 
-%\makeatletter % não sei pra isso serve aqui ...
-
 % define margins for theorems environments, via mdfsetup
 \mdfsetup{skipabove=1em,skipbelow=1em}
 
-\declaretheoremstyle[
-    headfont=\bfseries\sffamily\color{NavyBlue},
-    % headformat=\NAME~\NUMBER,
+% define colored symbols
+% FIXME
+% \newcommand{\blueqed}{\textcolor{NavyBlue}{\blacksquare}}
+% \newcommand{\greenqed}{\textcolor{ForestGreen}{\blacksquare}}
+
+% ---------------------------------------
+% somente título, mesma linha do conteúdo
+%
+\declaretheoremstyle[ % thmredhead
+    headfont=\bfseries\sffamily\color{RawSienna},
     headindent=0pt,
     headpunct={},
     spaceabove=2em,
-]{thmbluehead}
-\declaretheoremstyle[
-    headfont=\bfseries\itshape\sffamily\color{NavyBlue},
-    % headformat=\NAME,
-    headindent=0pt,
-    headpunct={},
-    postheadspace=\newline,
-    qed=\textcolor{NavyBlue}{\blacksquare}
-]{thmblueblockqed}
-\declaretheoremstyle[
+]{thmredhead}
+\declaretheoremstyle[ % thmgreenhead
     headfont=\bfseries\sffamily\color{ForestGreen},
-    % headformat=\NAME~\NUMBER,
     headindent=0pt,
     headpunct={},
     spaceabove=2em,
 ]{thmgreenhead}
-\declaretheoremstyle[
-    headfont=\bfseries\itshape\sffamily\color{ForestGreen},
-    % headformat=\NAME,
+\declaretheoremstyle[ % thmbluehead
+    headfont=\bfseries\sffamily\color{NavyBlue},
+    headindent=0pt,
+    headpunct={},
+    spaceabove=2em,
+]{thmbluehead}
+
+% --------------------------------------------------
+% título em linha separada do conteúdo, QED ao final
+%
+\declaretheoremstyle[ % thmredblockqed
+    headfont=\bfseries\itshape\sffamily\color{RawSienna},
     headindent=0pt,
     headpunct={},
     postheadspace=\newline,
-    qed=\textcolor{ForestGreen}{\blacksquare}
+    qed=\qedsymbol
+]{thmredblockqed}
+\declaretheoremstyle[ % thmgreenblockqed
+    headfont=\bfseries\itshape\sffamily\color{ForestGreen},
+    headindent=0pt,
+    headpunct={},
+    postheadspace=\newline,
+    qed=\qedsymbol
 ]{thmgreenblockqed}
-\declaretheoremstyle[
-    headfont=\bfseries\sffamily\color{ForestGreen!70!black}, bodyfont=\normalfont,
-    mdframed={
-        linewidth=2pt,
-        rightline=false, topline=false, bottomline=false,
-        linecolor=ForestGreen, backgroundcolor=ForestGreen!5,
-    }
-]{thmgreenbox}
-\declaretheoremstyle[
-    headfont=\bfseries\sffamily\color{ForestGreen!70!black}, bodyfont=\normalfont,
-    mdframed={
-        linewidth=2pt,
-        rightline=false, topline=false, bottomline=false,
-        linecolor=ForestGreen
-    }
-]{thmgreenline}
-\declaretheoremstyle[
-    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
-    mdframed={
-        linewidth=2pt,
-        rightline=false, topline=false, bottomline=false,
-        linecolor=NavyBlue, backgroundcolor=NavyBlue!5,
-    }
-]{thmbluebox}
-\declaretheoremstyle[
-    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
-    mdframed={
-        linewidth=2pt,
-        rightline=false, topline=false, bottomline=false,
-        linecolor=NavyBlue
-    }
-]{thmblueline}
-\declaretheoremstyle[
+\declaretheoremstyle[ % thmblueblockqed
+    headfont=\bfseries\itshape\sffamily\color{NavyBlue},
+    headindent=0pt,
+    headpunct={},
+    postheadspace=\newline,
+    qed=\qedsymbol
+]{thmblueblockqed}
+
+% -------------------------------
+% borda à esquerda e cor de fundo
+%
+\declaretheoremstyle[ % thmredbox
     headfont=\bfseries\sffamily\color{RawSienna!70!black},
     bodyfont=\normalfont,
-    headpunct={},
-    postheadhook=\hspace{0.5em},
-    spacebelow=1em,
+    % headpunct={}, postheadhook=\hspace{0.5em}, spacebelow=1em,
     mdframed={
+        backgroundcolor=RawSienna!5,
         linewidth=2pt,
-        rightline=false, topline=false, bottomline=false,
-        linecolor=RawSienna, backgroundcolor=RawSienna!5,
+        linecolor=RawSienna,
+        rightline=false, topline=false, bottomline=false
     }
 ]{thmredbox}
-\declaretheoremstyle[
-    headfont=\bfseries\sffamily\color{RawSienna!70!black}, bodyfont=\normalfont,
-    numbered=no,
+\declaretheoremstyle[ % thmgreenbox
+    headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+    bodyfont=\normalfont,
+    mdframed={
+        backgroundcolor=ForestGreen!5,
+        linewidth=2pt,
+        linecolor=ForestGreen,
+        rightline=false, topline=false, bottomline=false,
+    }
+]{thmgreenbox}
+\declaretheoremstyle[ % thmbluebox
+    headfont=\bfseries\sffamily\color{NavyBlue!70!black},
+    bodyfont=\normalfont,
+    mdframed={
+        backgroundcolor=NavyBlue!5,
+        linewidth=2pt,
+        linecolor=NavyBlue,
+        rightline=false, topline=false, bottomline=false
+    }
+]{thmbluebox}
+
+% ---------------------------------
+% borda à esquerda, sem cor de fundo
+%
+\declaretheoremstyle[ % thmredline
+    headfont=\bfseries\sffamily\color{RawSienna!70!black},
+    bodyfont=\normalfont,
     mdframed={
         linewidth=2pt,
-        rightline=false, topline=false, bottomline=false,
-        linecolor=RawSienna, backgroundcolor=RawSienna!1,
-    },
-    qed=\qedsymbol
-]{thmproofbox}
-\declaretheoremstyle[
-    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
-    numbered=no,
+        linecolor=RawSienna,
+        rightline=false, topline=false, bottomline=false
+    }
+]{thmredline}
+\declaretheoremstyle[ % thmgreenline
+    headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+    bodyfont=\normalfont,
     mdframed={
         linewidth=2pt,
-        rightline=false, topline=false, bottomline=false,
-        linecolor=NavyBlue, backgroundcolor=NavyBlue!1,
-    },
-]{thmexplanationbox}
+        linecolor=ForestGreen,
+        rightline=false, topline=false, bottomline=false
+    }
+]{thmgreenline}
+\declaretheoremstyle[ % thmblueline
+    headfont=\bfseries\sffamily\color{NavyBlue!70!black},
+    bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        linecolor=NavyBlue,
+        rightline=false, topline=false, bottomline=false
+    }
+]{thmblueline}
 
 % >>> ------------------------------------------------------------------------
 
@@ -265,26 +289,21 @@
 % numbered environments
 \declaretheorem[name=Teorema, numberwithin=chapter, style=thmgreenbox]{theorem}
 \declaretheorem[name=Definição, numberwithin=chapter, style=thmbluebox]{definition}
-\declaretheorem[name=Proposição, numberwithin=chapter, style=thmexplanationbox]{prop}
 \declaretheorem[name=Exemplo, numberwithin=chapter, style=thmbluehead]{eg}
 \declaretheorem[name=Estudo de caso, numberwithin=chapter, style=thmredbox]{case}
 \declaretheorem[name=Exercicio, numberwithin=chapter, style=thmgreenhead]{exercise}
-
-% These environments do not have top margins—they are designed to be "glued" to
-% the preceding environment. For example, when we state a definition, we
-% typically follow it with a proof of that definition.
-\declaretheorem[name=Prova, style=thmproofbox]{replacementproof}
-\renewenvironment{proof}[1][\proofname]{\vspace{-2em}\begin{replacementproof}}{\end{replacementproof}}
-\declaretheorem[name=Demonstração, style=thmproofbox]{replacementdemo}
-\newenvironment{demo}[1][\proofname]{\vspace{-2em}\begin{replacementdemo}}{\end{replacementdemo}}
 
 % non-numbered environments
 \declaretheorem[numbered=no, name=Corolário]{corollary}
 \declaretheorem[numbered=no, name=Observação]{remark}
 \declaretheorem[numbered=no, name=Nota]{note}
-\declaretheorem[numbered=no, name=Solução, style=thmblueblockqed]{egsol}
+\declaretheorem[numbered=no, name=Demonstração, style=thmredblockqed]{demo}
 \declaretheorem[numbered=no, name=Solução, style=thmblueblockqed]{sol}
 \declaretheorem[numbered=no, name=Resolução, style=thmgreenblockqed]{resolucao}
+
+% apply styles to already defined environments
+\declaretheorem[numbered=no, name=Prova, style=thmredblockqed]{replacementproof}
+\renewenvironment{proof}[1][\proofname]{\begin{replacementproof}}{\end{replacementproof}}
 
 % >>> ------------------------------------------------------------------------
 
